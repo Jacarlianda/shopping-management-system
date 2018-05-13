@@ -365,6 +365,7 @@ public final class MainPage extends ScannerChoice {
                         break;
                 }
             }
+
             System.err.println("\t!输入有误!");
             System.out.println("重新输入或按 0 返回上一级菜单.");
         } while (true);
