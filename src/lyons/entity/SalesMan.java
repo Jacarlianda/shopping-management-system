@@ -1,72 +1,71 @@
 package lyons.entity;
 
 /**
- * SalesMan ÊÛ»õÔ±ÊµÌåÀà
+ * SalesMan ï¿½Û»ï¿½Ô±Êµï¿½ï¿½ï¿½ï¿½
+ *
  * @author lyons(zhanglei)
  */
 
-public final class SalesMan
-{
-	private int sId;
-	private String sName;
-	private String sPassWord;
-	
-	/**
-	 * ÑéÖ¤ÓÃ»§µÇÂ½
-	 * @param sId,spassWord
-	 */
-	public SalesMan(int sId,String spassWord)
-	{
-		this.sId = sId;
-		this.sPassWord = spassWord;
-	}
-	
-	/**
-	 * ²éÑ¯ÓÃ»§¡¢¸ü¸ÄÓÃ»§ÃÜÂë
-	 * @param sId,sName,sPassWord
-	 */
-	public SalesMan(int sId,String sName,String sPassWord)
-	{
-		this.sId = sId;
-		this.sName = sName;
-		this.sPassWord = sPassWord;
-	}
-	
-	/**
-	 * Ìí¼ÓÓÃ»§
-	 * @param NsNameame,sPassWord
-	 */
-	public SalesMan(String NsNameame, String sPassWord)
-	{
-		this.sName = NsNameame;
-		this.sPassWord = sPassWord;
-	}
+public final class SalesMan {
+    private int sId;
+    private String sName;
+    private String sPassWord;
 
-		
-	//¹²ÓÐget.set·½·¨
-		public int getSId()
-		{
-			return sId;
-		}
-		public void setSId(int id)
-		{
-			sId = id;
-		}
-		public String getSName()
-		{
-			return sName;
-		}
-		public void setSName(String name)
-		{
-			sName = name;
-		}
-		public String getSPassWord()
-		{
-			return sPassWord;
-		}
-		public void setSPassWord(String passWord)
-		{
-			sPassWord = passWord;
-		}
+    /**
+     * ï¿½ï¿½Ö¤ï¿½Ã»ï¿½ï¿½ï¿½Â½
+     *
+     * @param sId,spassWord
+     */
+    public SalesMan(int sId, String spassWord) {
+        this.sId = sId;
+        this.sPassWord = spassWord;
+    }
+
+    /**
+     * ï¿½ï¿½Ñ¯ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
+     *
+     * @param sId,sName,sPassWord
+     */
+    public SalesMan(int sId, String sName, String sPassWord) {
+        this.sId = sId;
+        this.sName = sName;
+        this.sPassWord = sPassWord;
+    }
+
+    /**
+     * ï¿½ï¿½ï¿½ï¿½Ã»ï¿½
+     *
+     * @param NsNameame,sPassWord
+     */
+    public SalesMan(String NsNameame, String sPassWord) {
+        this.sName = NsNameame;
+        this.sPassWord = sPassWord;
+    }
+
+
+    //ï¿½ï¿½ï¿½ï¿½get.setï¿½ï¿½ï¿½ï¿½
+    public int getSId() {
+        return sId;
+    }
+
+    public void setSId(int id) {
+        sId = id;
+    }
+
+    public String getSName() {
+        return sName;
+    }
+
+    public void setSName(String name) {
+        sName = name;
+    }
+
+    public String getSPassWord() {
+        return sPassWord;
+    }
+
+    public void setSPassWord(String passWord) {
+        sPassWord = passWord;
+    }
 
 }

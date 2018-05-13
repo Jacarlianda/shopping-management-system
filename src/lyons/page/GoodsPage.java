@@ -8,314 +8,271 @@ import lyons.tools.QueryPrint;
 import lyons.tools.ScannerChoice;
 
 /**
- * ²Ù×÷ÉÌÆ·½çÃæ
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
+ *
  * @author lyons(zhanglei)
  */
 
-public final class GoodsPage extends ScannerChoice
-{
+public final class GoodsPage extends ScannerChoice {
 
-	/**
-	 * 1.Ìí¼ÓÉÌÆ·½çÃæ
-	 */
-	public static void  addGoodsPage()
-	{
-		
-		System.out.println("\tÕıÔÚÖ´ĞĞÌí¼ÓÉÌÆ·²Ù×÷\n");
-		
-		System.out.println("\nÕˆİ”ÈëÌí¼ÓÉÌÆ·-Ãû³Æ");
-		String goodsName = ScannerInfoString();
-		
-		System.out.println("\nÕˆİ”ÈëÌí¼ÓÉÌÆ·-¼Û¸ñ");
-		double goodsPrice = ScannerInfo();
-	
-		System.out.println("\nÕˆİ”ÈëÌí¼ÓÉÌÆ·-ÊıÁ¿");
-		int goodsNumber = ScannerNum();
-		
-		Goods goods  = new Goods(goodsName,goodsPrice,goodsNumber);
-		boolean bool = new GoodsDao().addGoods(goods);
-		
-		if (bool)
-		{
-			System.out.println("\n\t!ÄúÒÑ³É¹¦Ìí¼ÓÉÌÆ·µ½Êı¾İ¿â!");			
-		}else 
-			{
-				System.out.println("Ìí¼ÓÉÌÆ·Ê§°Ü");	
-			}
-	 changedInfoNext("addGoodsPage");//Ñ¡ÔñÏÂÒ»²½
-	}
+    /**
+     * 1.ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
+     */
+    public static void addGoodsPage() {
 
-	/**
-	 * 2.¸ü¸ÄÉÌÆ·½çÃæ
-	 */
-	public static void  upateGoodsPage()
-	{
-		System.out.println("\tÕıÔÚÖ´ĞĞ ¸ü¸ÄÉÌÆ· ²Ù×÷\n");
-		System.out.println("ÇëÊäÈëÏëÒª¸ü¸ÄµÄÉÌÆ·Ãû×Ö");
-		
-		//µ÷ÓÃ²éÕÒÉÌÆ·º¯Êı£¬ÏÔÊ¾½«Òª¸ü¸ÄµÄÉÌÆ·ĞÅÏ¢
-		int gid = QueryPrint.query("upateGoodsPage"); //return the goods gid
+        System.out.println("\tï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½\n");
 
-		System.out.println("\n--------ÇëÑ¡ÔñÄúÒª¸ü¸ÄµÄÄÚÈİ\n");
-		System.out.println("\t1.¸ü¸ÄÉÌÆ·-Ãû³Æ");
-		System.out.println("\t2.¸ü¸ÄÉÌÆ·-¼Û¸ñ");
-		System.out.println("\t3.¸ü¸ÄÉÌÆ·-ÊıÁ¿");
-		System.out.println("\nÇëÊäÈëÑ¡Ïî,»òÕß°´0·µ»ØÉÏÒ»¼¶²Ëµ¥.");
-		 do
-		{
-			 String choice = ScannerInfoString();
-			 String regex = "[0-3]";
-			 if (choice.matches(regex))
-			 { 
-				 int info = Integer.parseInt(choice);
-				 switch (info)
-				 {
-				 case 0:
-					 MainPage.MaintenancePage();
-					 break;
-				 case 1:
-					 System.out.println("ÇëÊäÈëÉÌÆ·-ĞÂÃû³Æ");
-					 String gname = ScannerInfoString();
-					 Goods goodsName = new Goods(gid,gname);
-					 boolean boolName = new GoodsDao().updateGoods(1, goodsName);
-					 if (boolName)
-					 {
-						 System.out.println("\n\t£¡£¡³É¹¦¸üĞÂÉÌÆ·ÃûÖÁÊı¾İ¿â£¡£¡\n");
-					 }else 
-					 	{
-						 	System.err.println("\n\t£¡£¡¸üĞÂÉÌÆ·ÃûÊ§”¡£¡£¡");
-					 	}
-					 changedInfoNext("upateGoodsPage");
-					 break;
-				 case 2:
-					 System.out.println("ÇëÊäÈëÉÌÆ·-ĞÂ¼Û¸ñ ");
-					 double gprice = ScannerInfo();
-					 Goods  goodsPrice = new Goods(gid,gprice);
-					 boolean boolPrice = new GoodsDao().updateGoods(2,goodsPrice);
-					 
-					 if (boolPrice)
-					 {
-						 System.out.println("\n\t£¡£¡³É¹¦¸üĞÂÉÌÆ·¼Û¸ñÖÁÊı¾İ¿â£¡£¡\n");
-					 }else 
-					 	{
-						 	System.err.println("\n\t£¡£¡¸üĞÂÉÌÆ·¼Û¸ñÊ§”¡£¡£¡");
-					 	}
-					 changedInfoNext("upateGoodsPage");
-					 break;
-				 case 3:
-					 System.out.println("ÇëÊäÈëÉÌÆ·-ĞÂÊıÁ¿ ");
-					 int gNum = ScannerNum();	
-					 Goods  goodsNum= new Goods(gid,gNum);
-					 boolean boolNum = new GoodsDao().updateGoods(3,goodsNum);
-					 if (boolNum)
-					 {
-						 System.out.println("\n\t£¡£¡³É¹¦¸üĞÂÉÌÆ·ÊıÁ¿ÖÁÊı¾İ¿â£¡£¡\n");
-					 }else 
-					 	{
-						 	System.err.println("\n\t£¡£¡¸üĞÂÉÌÆ·ÊıÁ¿Ê§”¡£¡£¡");
-					 	}
-					 	changedInfoNext("upateGoodsPage");
-					 break;
-				 default:
-					 System.out.println("ÇëÊäÈëÕıÈ·µÄÑ¡Ôñ£¡");
-				 break;
-				 }
-			 }
-			 System.err.println("£¡ÊäÈëÓĞÎó£¡");
-			System.out.println("ÇëÖØĞÂÑ¡Ôñ,»òÕß°´0·µ»ØÉÏÒ»¼¶²Ëµ¥.");
-		 } while (true);	
-	}
-	
-	/**
-	 * 3.É¾³ıÉÌÆ·½çÃæ
-	 */
-	public static void deleteGoodsPage()
-	{
-		System.out.println("\tÕıÔÚÖ´ĞĞ É¾³ıÉÌÆ· ²Ù×÷\n");
-		System.out.println("ÇëÊäÈëÏëÒªÉ¾³ıµÄÉÌÆ·Ãû×Ö");
-		
-		//µ÷ÓÃ²éÕÒÉÌÆ·º¯Êı£¬ÏÔÊ¾½«ÒªÉ¾³ıµÄÉÌÆ·
-		int gid = QueryPrint.query("deleteGoodsPage"); //return the goods gid
-		
-		//È·ÈÏÉ¾³ı£¡
-			do
-			{
-				System.out.println("\nÈ·ÈÏÉ¾³ı¸ÃÉÌÆ·£ºY/N");
-				String choice = ScannerInfoString();
-					if ("y".equals(choice) || "Y".equals(choice))
-					{
-						//½øĞĞ„h³ı-Êı¾İ¿â²Ù×÷
-						boolean boolDeleteGoods = new GoodsDao().deleteGoods(gid);//Õ{ÓÃ„h³ı¹¦ÄÜ
-						
-						if (boolDeleteGoods)
-						{
-							System.err.println("\t£¡£¡ÒÑ³É¹¦„h³ı¸ÃÉÌÆ·£¡£¡\n");
-						}else 
-							{
-								System.err.println("\n\t£¡£¡„h³ı¸ÃÉÌÆ·Ê§”¡£¡£¡");
-							}
-						changedInfoNext("deleteGoodsPage"); 
-					}else if ("N".equals(choice) || "n".equals(choice)) 
-							{
-								MainPage.MaintenancePage();
-							}
-				System.out.println("\t!!ÊäÈëÓĞÎó,ÇëÖØĞÂÊäÈë!!\n");
-			} while (true);
-	}
+        System.out.println("\nÕˆİ”ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·-ï¿½ï¿½ï¿½ï¿½");
+        String goodsName = ScannerInfoString();
 
-	/**
-	 * 4.²éÑ¯ÉÌÆ·½çÃæ
-	 */
-	public static void queryGoodsPage()
-	{
-		System.out.println("\t\t  ÕıÔÚÖ´ĞĞ²éÑ¯ÉÌÆ·²Ù×÷\n");
-		System.out.println("\t\t1.°´ÕÕÉÌÆ· ÊıÁ¿ÉıĞò ²éÑ¯");
-		System.out.println("\t\t2.°´ÕÕÉÌÆ· ¼Û¸ñÉıĞò ²éÑ¯");
-		System.out.println("\t\t3.ÊäÈëÉÌÆ·  ¹Ø¼ü×Ö  ²éÑ¯");
-		System.out.println("\nÇëÊäÈëÑ¡Ïî,»òÕß°´0·µ»ØÉÏÒ»¼¶²Ëµ¥.");
-			
-		 do
-		{
-			 String info = ScannerInfoString();//ÓÃ»§Ñ¡ÔñÉÏÊöÌáÊ¾ĞÅÏ¢
-			 String regex = "[0-3]";
-			 if (info.matches(regex))
-			 { 
-				 int choice = Integer.parseInt(info);
-				 switch (choice)
-				 {
-				 case 0:
-					 MainPage.MaintenancePage();
-					 break;
-				 case 1:
-				 case 2:
-				 case 3:
-					 if (choice == 3)//µ±ÓÃ»§Ê¹ÓÃ3£¨¼´¹Ø¼ü×Ö²éÑ¯£©Ê±£¬ĞèÒª´òÓ¡´ËÏîÄ¿¡£
-					 {
-						 System.out.println("\t\tÕıÔÚÖ´ĞĞÉÌÆ·  ¹Ø¼ü×Ö  ²éÑ¯²Ù×÷\n");
-						 System.out.println("\nÇëÊäÈëÉÌÆ·¹Ø¼ü×Ö");
-					 }
-					 //µ÷ÓÃ²éÑ¯¹¦ÄÜ
-					 ArrayList<Goods> goodsList = new GoodsDao().queryGoods(choice);
-					 if (goodsList == null || goodsList.size() <= 0)
-					 {
-						 System.err.println("\n\t!!Äú²éÑ¯µÄÉÌÆ·²»´æÔÚ!!\n");
-						 queryGoodsPage();
-					 } else
-					 	  {
-							 if (choice == 1) //´òÓ¡Ä¿Â¼£¬²»Òª·ÅÔÚ¹¦ÄÜº¯ÊıÖĞ£¬»áÓ°ÏìÆäËû·½·¨µ÷ÓÃ
-							 {	
-								 System.out.println("\t\t\t\t\tÉÌÆ·°´ÕÕ ÊıÁ¿ÉıĞò ÁĞ±í\n\n");
-							 }else if (choice == 2) 
-									 {
-										 System.out.println("\t\t\t\t\tÉÌÆ·°´ÕÕ ¼Û¸ñÉıĞò ÁĞ±í\n\n");
-									 }else
-										 {
-											 System.out.println("\t\t\t\t\tÄúËù²éÕÒµÄÉÌÆ·ÈçÏÂ\n\n");
-										 }
-							 System.out.println("\tÉÌÆ·±àºÅ\t\tÉÌÆ·Ãû³Æ\t\tÉÌÆ·¼Û¸ñ\t\tÉÌÆ·ÊıÁ¿\t\t±¸×¢\n");
-							 
-							 //±éÀúÊı×é£¨´æ·ÅÓÃ»§²éÕÒµÄĞÅÏ¢£© 
-							 for (int i = 0,length = goodsList.size(); i < length; i++)
-							 {
-								 Goods goods = goodsList.get(i);
-								 System.out.print("\t"+goods.getGid()+"\t\t"+goods.getGname()+"\t\t"+goods.getGprice()+"\t\t"+goods.getGnum());
-								 int gnum = goods.getGnum();
-								 if (gnum ==0)
-								 {
-									 System.out.println("\t\t¸ÃÉÌÆ·ÒÑÊÛ¿Õ£¡");
-								 }else if (gnum<10)
-										 {
-											 System.out.println("\t\t¸ÃÉÌÆ·ÒÑ²»×ã10¼ş");
-										 }else 
-											 {
-												 System.out.println("\t\t-");
-											 }
-								 System.out.println("\t");
-							 }
-						 	System.out.println("---------------------");
-							 do
-							{
-								 System.out.println("ÊäÈë 0 ·µ»ØÉÏÒ»¼¶²Ëµ¥");
-								 String choiceNext = ScannerInfoString();
-								
-								 if ("0".equals(choiceNext))
-								{
-									 MainPage.MaintenancePage();
-								}
-								 System.err.println("ÊäÈëÓĞÎó£¡");
-							} while (true);
-					 	  }
-					 break;
-				 default:
-				 break;
-				 }
-			 break;
-			 }
-		 System.err.println("ÊäÈëÓĞÎó£¡");
-		 System.out.println("ÇëÖØĞÂÑ¡Ôñ,»òÕß°´0·µ»ØÉÏÒ»¼¶²Ëµ¥.");
-		} while (true);
+        System.out.println("\nÕˆİ”ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·-ï¿½Û¸ï¿½");
+        double goodsPrice = ScannerInfo();
 
-		 //ÓÃ»§Ñ¡Ôñ²Ù×÷Íê²éÑ¯ºóµÄÏÂÒ»²½
-		System.out.println("\n\nÊäÈë 0 ·µ»ØÉÏÒ»¼¶²Ëµ¥");
-		boolean boolNext = true;
-		 do
-		{
-			 String choice = ScannerInfoString();
-			 if ("0".equals(choice))
-			 { 
-				 boolNext = false;
-				 queryGoodsPage();
-			 }
-			System.err.println("!ÊäÈëÓĞÎó!");
-			System.out.println("ÇëÊäÈë 0 ·µ»ØÉÏÒ»¼¶²Ëµ¥");
-		} while (boolNext);	
-	}
+        System.out.println("\nÕˆİ”ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·-ï¿½ï¿½ï¿½ï¿½");
+        int goodsNumber = ScannerNum();
 
-	/**
-	 * 5.Õ¹Ê¾ËùÓĞÉÌÆ·½çÃæ
-	 */
-	public static void displayGoodsPage()
-	{
-		System.out.println("\t\t\t\t\tËùÓĞÉÌÆ·ÁĞ±í\n\n");
-		ArrayList<Goods> goodsList = new GoodsDao().displayGoods();
-		
-		if (goodsList.size() <= 0)
-		{
-			System.err.println("£¡¿â´æÎª¿Õ£¡");
-			MainPage.MaintenancePage();
-		}else 
-			{
-				System.out.println("\tÉÌÆ·±àºÅ\t\tÉÌÆ·Ãû³Æ\t\tÉÌÆ·¼Û¸ñ\t\tÉÌÆ·ÊıÁ¿\t\t±¸×¢\n");
-				for (int i = 0,length = goodsList.size(); i < length; i++) //±ÜÃâÖØ¸´¼ÆËã±äÁ¿£¬ÀË·Ñ×ÊÔ´£¡
-				{
-					Goods goods = goodsList.get(i);
-					System.out.print("\t"+goods.getGid()+"\t\t"+goods.getGname()+"\t\t"+goods.getGprice()+" $\t\t"+goods.getGnum());
-					
-					int gNum = goods.getGnum();
-					if (gNum==0)
-					{
-						System.out.println("\t\t¸ÃÉÌÆ·ÒÑÊÛ¿Õ£¡");
-					}else if (gNum<10) 
-							{
-								System.out.println("\t\t¸ÃÉÌÆ·ÒÑ²»×ã10¼ş");
-							}else
-								{
-									System.out.println("\t\t-");
-								}
-					System.out.println("\t");
-				}
-				//ÏÂÒ»²½
-				System.out.println("---------------------");
-				do
-				{
-					System.out.println("ÊäÈë 0 ·µ»ØÉÏÒ»¼¶²Ëµ¥");
-					String choice = ScannerInfoString();
-					if ("0".equals(choice))
-					{
-						MainPage.MaintenancePage();
-					}
-					System.out.println("ÊäÈëÓĞÎó£¡");
-				} while (true);
-			}
-	}
+        Goods goods = new Goods(goodsName, goodsPrice, goodsNumber);
+        boolean bool = new GoodsDao().addGoods(goods);
+
+        if (bool) {
+            System.out.println("\n\t!ï¿½ï¿½ï¿½Ñ³É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½İ¿ï¿½!");
+        } else {
+            System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Æ·Ê§ï¿½ï¿½");
+        }
+        changedInfoNext("addGoodsPage");//Ñ¡ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+    }
+
+    /**
+     * 2.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
+     */
+    public static void upateGoodsPage() {
+        System.out.println("\tï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ· ï¿½ï¿½ï¿½ï¿½\n");
+        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½");
+
+        //ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Òªï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ï¢
+        int gid = QueryPrint.query("upateGoodsPage"); //return the goods gid
+
+        System.out.println("\n--------ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½\n");
+        System.out.println("\t1.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·-ï¿½ï¿½ï¿½ï¿½");
+        System.out.println("\t2.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·-ï¿½Û¸ï¿½");
+        System.out.println("\t3.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·-ï¿½ï¿½ï¿½ï¿½");
+        System.out.println("\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½,ï¿½ï¿½ï¿½ß°ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ëµï¿½.");
+        do {
+            String choice = ScannerInfoString();
+            String regex = "[0-3]";
+            if (choice.matches(regex)) {
+                int info = Integer.parseInt(choice);
+                switch (info) {
+                    case 0:
+                        MainPage.MaintenancePage();
+                        break;
+                    case 1:
+                        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+                        String gname = ScannerInfoString();
+                        Goods goodsName = new Goods(gid, gname);
+                        boolean boolName = new GoodsDao().updateGoods(1, goodsName);
+                        if (boolName) {
+                            System.out.println("\n\tï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¿â£¡ï¿½ï¿½\n");
+                        } else {
+                            System.err.println("\n\tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+                        }
+                        changedInfoNext("upateGoodsPage");
+                        break;
+                    case 2:
+                        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·-ï¿½Â¼Û¸ï¿½ ");
+                        double gprice = ScannerInfo();
+                        Goods goodsPrice = new Goods(gid, gprice);
+                        boolean boolPrice = new GoodsDao().updateGoods(2, goodsPrice);
+
+                        if (boolPrice) {
+                            System.out.println("\n\tï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Û¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¿â£¡ï¿½ï¿½\n");
+                        } else {
+                            System.err.println("\n\tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Û¸ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+                        }
+                        changedInfoNext("upateGoodsPage");
+                        break;
+                    case 3:
+                        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ");
+                        int gNum = ScannerNum();
+                        Goods goodsNum = new Goods(gid, gNum);
+                        boolean boolNum = new GoodsDao().updateGoods(3, goodsNum);
+                        if (boolNum) {
+                            System.out.println("\n\tï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¿â£¡ï¿½ï¿½\n");
+                        } else {
+                            System.err.println("\n\tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+                        }
+                        changedInfoNext("upateGoodsPage");
+                        break;
+                    default:
+                        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ñ¡ï¿½ï¿½");
+                        break;
+                }
+            }
+            System.err.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+            System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½,ï¿½ï¿½ï¿½ß°ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ëµï¿½.");
+        } while (true);
+    }
+
+    /**
+     * 3.É¾ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
+     */
+    public static void deleteGoodsPage() {
+        System.out.println("\tï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ É¾ï¿½ï¿½ï¿½ï¿½Æ· ï¿½ï¿½ï¿½ï¿½\n");
+        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÉ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½");
+
+        //ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ÒªÉ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
+        int gid = QueryPrint.query("deleteGoodsPage"); //return the goods gid
+
+        //È·ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½
+        do {
+            System.out.println("\nÈ·ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Y/N");
+            String choice = ScannerInfoString();
+            if ("y".equals(choice) || "Y".equals(choice)) {
+                //ï¿½ï¿½ï¿½Ğ„hï¿½ï¿½-ï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½ï¿½
+                boolean boolDeleteGoods = new GoodsDao().deleteGoods(gid);//ï¿½{ï¿½Ã„hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+                if (boolDeleteGoods) {
+                    System.err.println("\tï¿½ï¿½ï¿½ï¿½ï¿½Ñ³É¹ï¿½ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½\n");
+                } else {
+                    System.err.println("\n\tï¿½ï¿½ï¿½ï¿½ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+                }
+                changedInfoNext("deleteGoodsPage");
+            } else if ("N".equals(choice) || "n".equals(choice)) {
+                MainPage.MaintenancePage();
+            }
+            System.out.println("\t!!ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!!\n");
+        } while (true);
+    }
+
+    /**
+     * 4.ï¿½ï¿½Ñ¯ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
+     */
+    public static void queryGoodsPage() {
+        System.out.println("\t\t  ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ğ²ï¿½Ñ¯ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½\n");
+        System.out.println("\t\t1.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ· ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ñ¯");
+        System.out.println("\t\t2.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ· ï¿½Û¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ñ¯");
+        System.out.println("\t\t3.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·  ï¿½Ø¼ï¿½ï¿½ï¿½  ï¿½ï¿½Ñ¯");
+        System.out.println("\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½,ï¿½ï¿½ï¿½ß°ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ëµï¿½.");
+
+        do {
+            String info = ScannerInfoString();//ï¿½Ã»ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ï¢
+            String regex = "[0-3]";
+            if (info.matches(regex)) {
+                int choice = Integer.parseInt(info);
+                switch (choice) {
+                    case 0:
+                        MainPage.MaintenancePage();
+                        break;
+                    case 1:
+                    case 2:
+                    case 3:
+                        if (choice == 3)//ï¿½ï¿½ï¿½Ã»ï¿½Ê¹ï¿½ï¿½3ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½Ö²ï¿½Ñ¯ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½
+                        {
+                            System.out.println("\t\tï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½Æ·  ï¿½Ø¼ï¿½ï¿½ï¿½  ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½\n");
+                            System.out.println("\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Ø¼ï¿½ï¿½ï¿½");
+                        }
+                        //ï¿½ï¿½ï¿½Ã²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
+                        ArrayList<Goods> goodsList = new GoodsDao().queryGoods(choice);
+                        if (goodsList == null || goodsList.size() <= 0) {
+                            System.err.println("\n\t!!ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!!\n");
+                            queryGoodsPage();
+                        } else {
+                            if (choice == 1) //ï¿½ï¿½Ó¡Ä¿Â¼ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ú¹ï¿½ï¿½Üºï¿½ï¿½ï¿½ï¿½Ğ£ï¿½ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                            {
+                                System.out.println("\t\t\t\t\tï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ğ±ï¿½\n\n");
+                            } else if (choice == 2) {
+                                System.out.println("\t\t\t\t\tï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ ï¿½Û¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ğ±ï¿½\n\n");
+                            } else {
+                                System.out.println("\t\t\t\t\tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½\n\n");
+                            }
+                            System.out.println("\tï¿½ï¿½Æ·ï¿½ï¿½ï¿½\t\tï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½\t\tï¿½ï¿½Æ·ï¿½Û¸ï¿½\t\tï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½\t\tï¿½ï¿½×¢\n");
+
+                            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£¨ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
+                            for (int i = 0, length = goodsList.size(); i < length; i++) {
+                                Goods goods = goodsList.get(i);
+                                System.out.print("\t" + goods.getGid() + "\t\t" + goods.getGname() + "\t\t" + goods.getGprice() + "\t\t" + goods.getGnum());
+                                int gnum = goods.getGnum();
+                                if (gnum == 0) {
+                                    System.out.println("\t\tï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Û¿Õ£ï¿½");
+                                } else if (gnum < 10) {
+                                    System.out.println("\t\tï¿½ï¿½ï¿½ï¿½Æ·ï¿½Ñ²ï¿½ï¿½ï¿½10ï¿½ï¿½");
+                                } else {
+                                    System.out.println("\t\t-");
+                                }
+                                System.out.println("\t");
+                            }
+                            System.out.println("---------------------");
+                            do {
+                                System.out.println("ï¿½ï¿½ï¿½ï¿½ 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ëµï¿½");
+                                String choiceNext = ScannerInfoString();
+
+                                if ("0".equals(choiceNext)) {
+                                    MainPage.MaintenancePage();
+                                }
+                                System.err.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+                            } while (true);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            }
+            System.err.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+            System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½,ï¿½ï¿½ï¿½ß°ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ëµï¿½.");
+        } while (true);
+
+        //ï¿½Ã»ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+        System.out.println("\n\nï¿½ï¿½ï¿½ï¿½ 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ëµï¿½");
+        boolean boolNext = true;
+        do {
+            String choice = ScannerInfoString();
+            if ("0".equals(choice)) {
+                boolNext = false;
+                queryGoodsPage();
+            }
+            System.err.println("!ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!");
+            System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ëµï¿½");
+        } while (boolNext);
+    }
+
+    /**
+     * 5.Õ¹Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
+     */
+    public static void displayGoodsPage() {
+        System.out.println("\t\t\t\t\tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Ğ±ï¿½\n\n");
+        ArrayList<Goods> goodsList = new GoodsDao().displayGoods();
+
+        if (goodsList.size() <= 0) {
+            System.err.println("ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Õ£ï¿½");
+            MainPage.MaintenancePage();
+        } else {
+            System.out.println("\tï¿½ï¿½Æ·ï¿½ï¿½ï¿½\t\tï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½\t\tï¿½ï¿½Æ·ï¿½Û¸ï¿½\t\tï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½\t\tï¿½ï¿½×¢\n");
+            for (int i = 0, length = goodsList.size(); i < length; i++) //ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë·ï¿½ï¿½ï¿½Ô´ï¿½ï¿½
+            {
+                Goods goods = goodsList.get(i);
+                System.out.print("\t" + goods.getGid() + "\t\t" + goods.getGname() + "\t\t" + goods.getGprice() + " $\t\t" + goods.getGnum());
+
+                int gNum = goods.getGnum();
+                if (gNum == 0) {
+                    System.out.println("\t\tï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Û¿Õ£ï¿½");
+                } else if (gNum < 10) {
+                    System.out.println("\t\tï¿½ï¿½ï¿½ï¿½Æ·ï¿½Ñ²ï¿½ï¿½ï¿½10ï¿½ï¿½");
+                } else {
+                    System.out.println("\t\t-");
+                }
+                System.out.println("\t");
+            }
+            //ï¿½ï¿½Ò»ï¿½ï¿½
+            System.out.println("---------------------");
+            do {
+                System.out.println("ï¿½ï¿½ï¿½ï¿½ 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ëµï¿½");
+                String choice = ScannerInfoString();
+                if ("0".equals(choice)) {
+                    MainPage.MaintenancePage();
+                }
+                System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+            } while (true);
+        }
+    }
 }

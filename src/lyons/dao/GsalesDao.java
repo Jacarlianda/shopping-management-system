@@ -11,83 +11,75 @@ import lyons.db.DbConn;
 import lyons.entity.Gsales;
 
 /**
- * Êý¾Ý¿âgSales±í²Ù×÷
+ * ï¿½ï¿½ï¿½Ý¿ï¿½gSalesï¿½ï¿½ï¿½ï¿½ï¿½
+ *
  * @author lyons(zhanglei)
  */
-public final class GsalesDao
-{
-	
-	Connection        conn  = null;
-	PreparedStatement pstmt = null;
-	ResultSet 		  rs    = null;
-	
-	/**
-	 * 1.µ±ÌìÂô³öµÄÉÌÆ·
-	 * @return ArrayList<Gsales> ÉÌÆ·ÐÅÏ¢,°üÀ¨ allSum (µ¥ÖÖÉÌÆ·µÄÏúÊÛ×ÜºÍ)
-	 */
-	public ArrayList<Gsales> dailyGsales()
-	{
-		ArrayList<Gsales> GsalesList = new ArrayList<Gsales>(); 
-		conn = DbConn.getconn();
+public final class GsalesDao {
 
-		//ÊÛÂôÊ±¼ä=µ±Ç°Ê±¼ä trunc(sdate) =trunc(sysdate) µ¥Î»£ºÌì
-		//sqlÓï¾ä½âÊÍ¼ûfiles/sql/java_sql.sql
-		String sql = "select gname,gprice,gnum, allSum from goods, (select gid as salesid,sum(snum) as allSum from gsales where trunc(sdate) =trunc(sysdate) group by gid) where gid = salesid"; 
-		try
-		{
-			pstmt = conn.prepareStatement(sql);
-			rs 	  = pstmt.executeQuery();
-			while (rs.next())
-			{
-				String gName = rs.getString(1);
-				double gPrice = rs.getDouble(2);
-				int gNum = rs.getInt(3);
-				int allSnum = rs.getInt("allSum");
-				
-				Gsales Gsales = new Gsales(gName,gPrice,gNum,allSnum);
-				GsalesList.add(Gsales);						
-			}
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-		}finally
-				{
-					DbClose.queryClose(pstmt,rs,conn);
-				}
-		return GsalesList;
-	}
-	
-	/**
-	 *2.¹ºÎï½áËã-Ïòsales±íÖÐ²åÈëÉÌÆ·Êý¾Ý£¡
-	 *@param gSales ÊÛÂôÉÌÆ·¶ÔÏó
-	 *@return boolean
-	 */
-	public boolean shoppingSettlement(Gsales gSales)
-	{
-		boolean bool = false;
-		conn = DbConn.getconn();
-		String sql = "INSERT INTO GSALES(GID,SID,SNUM) VALUES(?,?,?)";
-		
-		try
-		{
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1,gSales.getGId());
-			pstmt.setInt(2,gSales.getSId());
-			pstmt.setInt(3,gSales.getSNum());
-			
-			int rs = pstmt.executeUpdate();
-			if (rs > 0)
-			{
-				bool = true;
-			}
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-		}finally
-		{
-			DbClose.addClose(pstmt,conn);
-		}
-		return bool;
-	}
-	
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+
+    /**
+     * 1.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
+     *
+     * @return ArrayList<Gsales> ï¿½ï¿½Æ·ï¿½ï¿½Ï¢,ï¿½ï¿½ï¿½ï¿½ allSum (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üºï¿½)
+     */
+    public ArrayList<Gsales> dailyGsales() {
+        ArrayList<Gsales> GsalesList = new ArrayList<Gsales>();
+        conn = DbConn.getconn();
+
+        //ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½=ï¿½ï¿½Ç°Ê±ï¿½ï¿½ trunc(sdate) =trunc(sysdate) ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½
+        //sqlï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½files/sql/java_sql.sql
+        String sql = "select gname,gprice,gnum, allSum from goods, (select gid as salesid,sum(snum) as allSum from gsales where trunc(sdate) =trunc(sysdate) group by gid) where gid = salesid";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                String gName = rs.getString(1);
+                double gPrice = rs.getDouble(2);
+                int gNum = rs.getInt(3);
+                int allSnum = rs.getInt("allSum");
+
+                Gsales Gsales = new Gsales(gName, gPrice, gNum, allSnum);
+                GsalesList.add(Gsales);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DbClose.queryClose(pstmt, rs, conn);
+        }
+        return GsalesList;
+    }
+
+    /**
+     * 2.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½salesï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Ý£ï¿½
+     *
+     * @param gSales ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
+     * @return boolean
+     */
+    public boolean shoppingSettlement(Gsales gSales) {
+        boolean bool = false;
+        conn = DbConn.getconn();
+        String sql = "INSERT INTO GSALES(GID,SID,SNUM) VALUES(?,?,?)";
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, gSales.getGId());
+            pstmt.setInt(2, gSales.getSId());
+            pstmt.setInt(3, gSales.getSNum());
+
+            int rs = pstmt.executeUpdate();
+            if (rs > 0) {
+                bool = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DbClose.addClose(pstmt, conn);
+        }
+        return bool;
+    }
+
 }

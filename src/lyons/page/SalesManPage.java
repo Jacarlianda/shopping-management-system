@@ -8,238 +8,206 @@ import lyons.tools.QueryPrint;
 import lyons.tools.ScannerChoice;
 
 /**
- * ²Ù×÷ÊÛ»õÔ±½çÃæ           
+ * ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
+ *
  * @author lyons(zhanglei)
  */
 
-public final class SalesManPage extends ScannerChoice
-{
-	/**
-	 * 1.Ìí¼ÓÊÛ»õÔ±½çÃæ ÒÑÊµÏÖ£¡
-	 */
-	public static void  addSalesManPage()
-	{
-		System.out.println("\tÕıÔÚÖ´ĞĞÌí¼ÓÊÛ»õÔ±²Ù×÷\n");
-		
-		System.out.println("\nÌí¼ÓÊÛ»õÔ±-ĞÕÃû");
-		String sName = ScannerInfoString();
-		
-		System.out.println("\nÌí¼ÓÊÛ»õÔ±-ÃÜÂë");
-		String sPssswd = ScannerInfoString();
-		
-		SalesMan salesMan = new SalesMan(sName,sPssswd);
-		boolean bool = new SalesManDao().addSalesMan(salesMan);
-		
-		if (bool)
-		{
-			System.out.println("\n\t!ÄúÒÑ³É¹¦Ìí¼ÓÊÛ»õÔ±µ½Êı¾İ¿â!");
-		}else 
-			{
-				System.out.println("Ìí¼ÓÊÛ»õÔ±Ê§°Ü");	
-			}
-	 choiceSalesManNext("addSalesMan");
-	}
-	
-	/**
-	 * 2.¸ü¸ÄÊÛ»õÔ±½çÃæ
-	 */
-	public static void updateSalesManPage()
-	{
-		System.out.println("\tÕıÔÚÖ´ĞĞ¸ü¸ÄÊÛ»õÔ±²Ù×÷\n");
-		System.out.println("ÇëÊäÈëÏëÒª¸ü¸ÄµÄÊÛ»õÔ±Ãû×Ö");
-		String sName = ScannerInfoString();
+public final class SalesManPage extends ScannerChoice {
+    /**
+     * 1.ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Êµï¿½Ö£ï¿½
+     */
+    public static void addSalesManPage() {
+        System.out.println("\tï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½\n");
 
-		//µ÷ÓÃ¾«È·²éÕÒÊÛ»õÔ±º¯Êı
-		ArrayList<SalesMan> salesManList = new QueryPrint().querySalesMan(sName);
-			if (salesManList.size() <= 0)
-			{
-				System.err.println("\t£¡£¡²éÎŞ´ËÈË£¡£¡");
-				choiceSalesManNext("updateSalesMan");
-			}else 
-				{
-					//ÏÔÊ¾½«Òª¸ü¸ÄµÄÊÛ»õÔ±ĞÅÏ¢
-					System.out.println("\t\t\tÊÛ»õÔ±ĞÅÏ¢\n\n");
-					System.out.println("\tÊÛ»õÔ±±àºÅ\t\tÊÛ»õÔ±ĞÕÃû\t\tÊÛ»õÔ±ÃÜÂë");
-					
-					SalesMan salesMan = salesManList.get(0); //ÉÏÃæµÄ¾«È·²éÕÒÖĞ£¬Ö»ÄÜ·µ»ØÒ»×éÊıÖµ¡£ÎŞĞè±éÀú£¡
-					System.out.println("\t"+salesMan.getSId()+"\t\t\t"+salesMan.getSName()+"\t\t\t"+salesMan.getSPassWord());
-					System.out.println();
-					
-					//Ñ¡Ôñ¸ü¸ÄÊÛ»õÔ±ÄÚÈİ
-					System.out.println("\n--------ÇëÑ¡ÔñÄúÒª¸ü¸ÄµÄÄÚÈİ\n");
-					System.out.println("\t1.¸ü¸ÄÊÛ»õÔ±-ĞÕÃû");
-					System.out.println("\t2.¸ü¸ÄÊÛ»õÔ±-ÃÜÂë");
-					do
-					{
-						String choice = ScannerInfoString();
-						String regex  = "[0-2]";
-						if (choice.matches(regex))
-						{
-							int info = Integer.parseInt(choice);
-							switch (info)
-							{
-							case 0:
-									MainPage.salesManManagementPage();
-								break;
-							case 1:
-									System.out.println("¸ü¸ÄÊÛ»õÔ±-ĞÂĞÕÃû");
-									String sNewName = ScannerInfoString();
-									
-									SalesMan salesManName = new SalesMan(salesMan.getSId(),sNewName,null);
-									boolean boolsName = new SalesManDao().updateSalesMan(1, salesManName);
-									
-									if (boolsName)
-									{
-										System.out.println("\n\t£¡£¡³É¹¦¸üĞÂÊÛ»õÔ±Ãû×ÖÖÁÊı¾İ¿â£¡£¡\n");
-									}else 
-										{
-											System.err.println("\n\t£¡£¡¸üĞÂÊÛ»õÔ±Ãû×ÖÊ§”¡£¡£¡");
-										}
-									choiceSalesManNext("updateSalesMan");
-								break;
-							case 2:
-									System.out.println("¸ü¸ÄÊÛ»õÔ±-ĞÂÃÜÂë");
-									String sNewPasswd = ScannerInfoString();
-									
-									SalesMan salesManPasswd = new SalesMan(salesMan.getSId(),null,sNewPasswd);
-									boolean boolsPasswd = new SalesManDao().updateSalesMan(2, salesManPasswd);
-									
-									if (boolsPasswd)
-									{
-										System.out.println("\n\t£¡£¡³É¹¦¸üĞÂÊÛ»õÔ±ÃÜÂëÖÁÊı¾İ¿â£¡£¡\n");
-									}else 
-										{
-											System.err.println("\n\t£¡£¡¸üĞÂÊÛ»õÔ±ÃÜÂëÊ§”¡£¡£¡");
-										}
-									choiceSalesManNext("updateSalesMan");
-								break;
-							default:
-								break;
-							}
-						}
-						System.out.println("\t!ÊäÈëÓĞÎó!");
-						System.out.println("\nÇëÑ¡ÔñÑ¡Ïî.»òÕß°´ 0 ·µ»ØÉÏÒ»¼¶²Ëµ¥.");
-					} while (true);
-				}
-	}
+        System.out.println("\nï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±-ï¿½ï¿½ï¿½ï¿½");
+        String sName = ScannerInfoString();
 
-	/**
-	 * 3.É¾³ıÊÛ»õÔ±½çÃæ
-	 */
-	public static void deleteSalesManPage()
-	{
-		
-		System.out.println("\tÕıÔÚÖ´ĞĞ É¾³ıÊÛ»õÔ± ²Ù×÷\n");
-		System.out.println("ÇëÊäÈëÏëÒªÉ¾³ıµÄÊÛ»õÔ±Ãû×Ö");
-		String sName = ScannerInfoString();
-		
-		//µ÷ÓÃ¾«È·²éÕÒÊÛ»õÔ±º¯Êı
-		ArrayList<SalesMan> salesManList = new QueryPrint().querySalesMan(sName);
-			if (salesManList.size() <= 0)
-			{
-				System.err.println("\t£¡£¡²éÎŞ´ËÈË£¡£¡");
-				choiceSalesManNext("deleteSalesMan");
-			}else 
-				{
-					//ÏÔÊ¾½«ÒªÉ¾³ıµÄÊÛ»õÔ±ĞÅÏ¢
-					System.out.println("\t\t\tÉ¾³ıÊÛ»õÔ±ĞÅÏ¢\n\n");
-					System.out.println("\tÊÛ»õÔ±±àºÅ\t\tÊÛ»õÔ±ĞÕÃû\t\tÊÛ»õÔ±ÃÜÂë");
-					
-					for (int i = 0,length = salesManList.size(); i < length; i++)
-					{
-						SalesMan salesMan = salesManList.get(i);
-						System.out.println("\t"+salesMan.getSId()+"\t\t\t"+salesMan.getSName()+"\t\t\t"+salesMan.getSPassWord());
-						System.out.println();
-					}
-					//È·ÈÏÊÇ·ñÕæµÄÉ¾³ı£¡
-					do
-					{
-						System.out.println("\nÈ·ÈÏÉ¾³ı¸ÃÊÛ»õÔ±£ºY/N");
-						String choice = ScannerInfoString();
-						if ("y".equals(choice) || "Y".equals(choice))
-						{
-							//½øĞĞ„h³ı-Êı¾İ¿â²Ù×÷
-							boolean boolDeleteSalesMan = new SalesManDao().deleteSalesMan(sName);//Õ{ÓÃ„h³ı¹¦ÄÜ
-							
-							if (boolDeleteSalesMan)
-							{
-								System.err.println("\t£¡£¡ÒÑ³É¹¦„h³ı¸ÃÊÛ»õÔ±£¡£¡\n");
-							}else 
-								{
-									System.err.println("\t£¡£¡„h³ı¸ÃÊÛ»õÔ±Ê§”¡£¡£¡");
-								}
-							choiceSalesManNext("deleteGoods"); 
-						}else if ("N".equals(choice) || "n".equals(choice)) 
-						{
-							MainPage.salesManManagementPage();
-						}
-						System.err.println("\t!!ÊäÈëÓĞÎó,ÇëÖØĞÂÊäÈë!!");
-					} while (true);
-				}
-	}
-	
-	
-	/**
-	 * 4.²éÑ¯ÊÛ»õÔ±½çÃæ ÒÑÊµÏÖ£¡
-	 */
-		public static void querySalesManPage()
-		{
-			System.out.println("\t\t  ÕıÔÚÖ´ĞĞ²éÑ¯ÊÛ»õÔ±²Ù×÷\n");
-			System.out.println("Òª²éÑ¯µÄÊÛ»õÔ±¹Ø¼ü×Ö");
-			String sName = ScannerInfoString();
-			
-			ArrayList<SalesMan> salesManList = new SalesManDao().querySalesMan(sName);
-				
-			if (salesManList.size() <=0)
-			{
-				System.err.println("\t£¡Ã»ÓĞÈËÔ±·ûºÏ²éÑ¯Ìõ¼ş£¡");
-			}else 
-				{
-					System.out.println("\t\t\tËùÓĞÊÛ»õÔ±ÁĞ±í\n\n");
-					System.out.println("\tÊÛ»õÔ±±àºÅ\t\tÊÛ»õÔ±ĞÕÃû\t\tÊÛ»õÔ±ÃÜÂë");
-					
-					for (int i = 0,length = salesManList.size(); i < length; i++)
-					{
-						SalesMan salesMan = salesManList.get(i);
-						System.out.println("\t"+salesMan.getSId()+"\t\t\t"+salesMan.getSName()+"\t\t\t"+salesMan.getSPassWord());
-						System.out.println();
-					}
-				}
-		 choiceSalesManNext("querySalesMan"); //param£ºµ÷ÓÃÕß
-		}
-		
-	/**
-	 * 5.ÏÔÊ¾ËùÓĞÊÛ»õÔ±½çÃæ
-	 */
-	public static void displaySalesManPage()
-	{
-		ArrayList<SalesMan> salesManList = new SalesManDao().displaySalesMan();
-		if (salesManList.size() <= 0)
-		{
-			System.err.println("\t£¡£¡ÊÛ»õÔ±ÁĞ±íÎª¿Õ£¡£¡");
-			MainPage.salesManManagementPage();
-		}else 
-			{
-				System.out.println("\t\t\tËùÓĞÊÛ»õÔ±ÁĞ±í\n\n");
-				System.out.println("\tÊÛ»õÔ±±àºÅ\t\tÊÛ»õÔ±ĞÕÃû\t\tÊÛ»õÔ±ÃÜÂë");
-				
-				for (int i = 0,length = salesManList.size(); i < length; i++)
-				{
-					SalesMan salesMan = salesManList.get(i);
-					System.out.println("\t"+salesMan.getSId()+"\t\t\t"+salesMan.getSName()+"\t\t\t"+salesMan.getSPassWord());
-					System.out.println();
-				}
-				do
-				{
-					System.out.println("\n\nÊäÈë 0 ·µ»ØÉÏÒ»¼¶²Ëµ¥");
-					String choice = ScannerInfoString();
-					
-					if ("0".equals(choice))
-					{
-						MainPage.salesManManagementPage();
-					}
-					System.err.print("\tÊäÈëÓĞÎó£¡");
-				} while (true);
-			}
-	}
+        System.out.println("\nï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±-ï¿½ï¿½ï¿½ï¿½");
+        String sPssswd = ScannerInfoString();
+
+        SalesMan salesMan = new SalesMan(sName, sPssswd);
+        boolean bool = new SalesManDao().addSalesMan(salesMan);
+
+        if (bool) {
+            System.out.println("\n\t!ï¿½ï¿½ï¿½Ñ³É¹ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½İ¿ï¿½!");
+        } else {
+            System.out.println("ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±Ê§ï¿½ï¿½");
+        }
+        choiceSalesManNext("addSalesMan");
+    }
+
+    /**
+     * 2.ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
+     */
+    public static void updateSalesManPage() {
+        System.out.println("\tï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ğ¸ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½\n");
+        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Äµï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½");
+        String sName = ScannerInfoString();
+
+        //ï¿½ï¿½ï¿½Ã¾ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
+        ArrayList<SalesMan> salesManList = new QueryPrint().querySalesMan(sName);
+        if (salesManList.size() <= 0) {
+            System.err.println("\tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ş´ï¿½ï¿½Ë£ï¿½ï¿½ï¿½");
+            choiceSalesManNext("updateSalesMan");
+        } else {
+            //ï¿½ï¿½Ê¾ï¿½ï¿½Òªï¿½ï¿½ï¿½Äµï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½Ï¢
+            System.out.println("\t\t\tï¿½Û»ï¿½Ô±ï¿½ï¿½Ï¢\n\n");
+            System.out.println("\tï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½\t\tï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½\t\tï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½");
+
+            SalesMan salesMan = salesManList.get(0); //ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½Ğ£ï¿½Ö»ï¿½Ü·ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            System.out.println("\t" + salesMan.getSId() + "\t\t\t" + salesMan.getSName() + "\t\t\t" + salesMan.getSPassWord());
+            System.out.println();
+
+            //Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
+            System.out.println("\n--------ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½\n");
+            System.out.println("\t1.ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±-ï¿½ï¿½ï¿½ï¿½");
+            System.out.println("\t2.ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±-ï¿½ï¿½ï¿½ï¿½");
+            do {
+                String choice = ScannerInfoString();
+                String regex = "[0-2]";
+                if (choice.matches(regex)) {
+                    int info = Integer.parseInt(choice);
+                    switch (info) {
+                        case 0:
+                            MainPage.salesManManagementPage();
+                            break;
+                        case 1:
+                            System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+                            String sNewName = ScannerInfoString();
+
+                            SalesMan salesManName = new SalesMan(salesMan.getSId(), sNewName, null);
+                            boolean boolsName = new SalesManDao().updateSalesMan(1, salesManName);
+
+                            if (boolsName) {
+                                System.out.println("\n\tï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¿â£¡ï¿½ï¿½\n");
+                            } else {
+                                System.err.println("\n\tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+                            }
+                            choiceSalesManNext("updateSalesMan");
+                            break;
+                        case 2:
+                            System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+                            String sNewPasswd = ScannerInfoString();
+
+                            SalesMan salesManPasswd = new SalesMan(salesMan.getSId(), null, sNewPasswd);
+                            boolean boolsPasswd = new SalesManDao().updateSalesMan(2, salesManPasswd);
+
+                            if (boolsPasswd) {
+                                System.out.println("\n\tï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¿â£¡ï¿½ï¿½\n");
+                            } else {
+                                System.err.println("\n\tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+                            }
+                            choiceSalesManNext("updateSalesMan");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                System.out.println("\t!ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!");
+                System.out.println("\nï¿½ï¿½Ñ¡ï¿½ï¿½Ñ¡ï¿½ï¿½.ï¿½ï¿½ï¿½ß°ï¿½ 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ëµï¿½.");
+            } while (true);
+        }
+    }
+
+    /**
+     * 3.É¾ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
+     */
+    public static void deleteSalesManPage() {
+
+        System.out.println("\tï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ É¾ï¿½ï¿½ï¿½Û»ï¿½Ô± ï¿½ï¿½ï¿½ï¿½\n");
+        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÉ¾ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½");
+        String sName = ScannerInfoString();
+
+        //ï¿½ï¿½ï¿½Ã¾ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
+        ArrayList<SalesMan> salesManList = new QueryPrint().querySalesMan(sName);
+        if (salesManList.size() <= 0) {
+            System.err.println("\tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ş´ï¿½ï¿½Ë£ï¿½ï¿½ï¿½");
+            choiceSalesManNext("deleteSalesMan");
+        } else {
+            //ï¿½ï¿½Ê¾ï¿½ï¿½ÒªÉ¾ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½Ï¢
+            System.out.println("\t\t\tÉ¾ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½Ï¢\n\n");
+            System.out.println("\tï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½\t\tï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½\t\tï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½");
+
+            for (int i = 0, length = salesManList.size(); i < length; i++) {
+                SalesMan salesMan = salesManList.get(i);
+                System.out.println("\t" + salesMan.getSId() + "\t\t\t" + salesMan.getSName() + "\t\t\t" + salesMan.getSPassWord());
+                System.out.println();
+            }
+            //È·ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½
+            do {
+                System.out.println("\nÈ·ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½Y/N");
+                String choice = ScannerInfoString();
+                if ("y".equals(choice) || "Y".equals(choice)) {
+                    //ï¿½ï¿½ï¿½Ğ„hï¿½ï¿½-ï¿½ï¿½ï¿½İ¿ï¿½ï¿½ï¿½ï¿½
+                    boolean boolDeleteSalesMan = new SalesManDao().deleteSalesMan(sName);//ï¿½{ï¿½Ã„hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+                    if (boolDeleteSalesMan) {
+                        System.err.println("\tï¿½ï¿½ï¿½ï¿½ï¿½Ñ³É¹ï¿½ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½\n");
+                    } else {
+                        System.err.println("\tï¿½ï¿½ï¿½ï¿½ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+                    }
+                    choiceSalesManNext("deleteGoods");
+                } else if ("N".equals(choice) || "n".equals(choice)) {
+                    MainPage.salesManManagementPage();
+                }
+                System.err.println("\t!!ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!!");
+            } while (true);
+        }
+    }
+
+
+    /**
+     * 4.ï¿½ï¿½Ñ¯ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Êµï¿½Ö£ï¿½
+     */
+    public static void querySalesManPage() {
+        System.out.println("\t\t  ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ğ²ï¿½Ñ¯ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½\n");
+        System.out.println("Òªï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½Ø¼ï¿½ï¿½ï¿½");
+        String sName = ScannerInfoString();
+
+        ArrayList<SalesMan> salesManList = new SalesManDao().querySalesMan(sName);
+
+        if (salesManList.size() <= 0) {
+            System.err.println("\tï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½Ï²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+        } else {
+            System.out.println("\t\t\tï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½Ğ±ï¿½\n\n");
+            System.out.println("\tï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½\t\tï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½\t\tï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½");
+
+            for (int i = 0, length = salesManList.size(); i < length; i++) {
+                SalesMan salesMan = salesManList.get(i);
+                System.out.println("\t" + salesMan.getSId() + "\t\t\t" + salesMan.getSName() + "\t\t\t" + salesMan.getSPassWord());
+                System.out.println();
+            }
+        }
+        choiceSalesManNext("querySalesMan"); //paramï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    }
+
+    /**
+     * 5.ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
+     */
+    public static void displaySalesManPage() {
+        ArrayList<SalesMan> salesManList = new SalesManDao().displaySalesMan();
+        if (salesManList.size() <= 0) {
+            System.err.println("\tï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½Ğ±ï¿½Îªï¿½Õ£ï¿½ï¿½ï¿½");
+            MainPage.salesManManagementPage();
+        } else {
+            System.out.println("\t\t\tï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½Ğ±ï¿½\n\n");
+            System.out.println("\tï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½\t\tï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½\t\tï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½");
+
+            for (int i = 0, length = salesManList.size(); i < length; i++) {
+                SalesMan salesMan = salesManList.get(i);
+                System.out.println("\t" + salesMan.getSId() + "\t\t\t" + salesMan.getSName() + "\t\t\t" + salesMan.getSPassWord());
+                System.out.println();
+            }
+            do {
+                System.out.println("\n\nï¿½ï¿½ï¿½ï¿½ 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ëµï¿½");
+                String choice = ScannerInfoString();
+
+                if ("0".equals(choice)) {
+                    MainPage.salesManManagementPage();
+                }
+                System.err.print("\tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+            } while (true);
+        }
+    }
 }

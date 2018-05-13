@@ -1,98 +1,100 @@
 package lyons.entity;
+
 /**
- * goods ÉÌÆ·ÊµÌåÀà
+ * goods ï¿½ï¿½Æ·Êµï¿½ï¿½ï¿½ï¿½
+ *
  * @author lyons(zhanglei)
  */
-public final class Goods
-{
- 	//Êý¾Ý¿âGoods±íÖ÷æI
-	private int gid;
-	private String gname;
-	private double gprice;
-	private int gnum;
+public final class Goods {
+    //ï¿½ï¿½ï¿½Ý¿ï¿½Goodsï¿½ï¿½ï¿½ï¿½ï¿½I
+    private int gid;
+    private String gname;
+    private double gprice;
+    private int gnum;
 
-	/**
-	 * Ìí¼ÓÉÌÆ·ÐÅÏ¢
-	 * @param gname,gprice,gum
-	 */
-	public Goods(String gname,double gprice,int gum)
-	{
-		this.gname  = gname;
-		this.gprice = gprice;
-		this.gnum 	= gum;
-	}
-	/**
-	 * Õ¹Ê¾ËùÓÐÉÌÆ·
-	 * @param gid,gname,gprice,gum
-	 */
-	public Goods(int gid,String gname,double gprice,int gum)
-	{
-		this.gid	= gid;
-		this.gname  = gname;
-		this.gprice = gprice;
-		this.gnum 	= gum;
-	}
-	
-	/**
-	 * ¸ù¾Ý±àºÅ¸ü¸ÄÉÌÆ·ÐÅÏ¢
-	 * @param gid,gum
-	 */
-	public Goods(int gid,int gnum)
-	{
-		this.gid	= gid;
-		this.gnum 	= gnum;
-	}
-	/**
-	 * ¸ù¾Ý±àºÅ¸ü¸ÄÉÌÆ·ÐÅÏ¢
-	 * @param gid,gprice
-	 */
-	public  Goods(int gid,double gprice)
-	{
-		this.gid	= gid;
-		this.gprice = gprice;
-	}
-	
-	/**
-	 * ¸ù¾Ý±àºÅ¸ü¸ÄÉÌÆ·ÐÅÏ¢
-	 * @param gid,gname
-	 */
-	public  Goods(int gid,String gname)
-	{
-		this.gid	= gid;
-		this.gname  = gname;
-	}
+    /**
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ï¢
+     *
+     * @param gname,gprice,gum
+     */
+    public Goods(String gname, double gprice, int gum) {
+        this.gname = gname;
+        this.gprice = gprice;
+        this.gnum = gum;
+    }
 
-	//¹²ÓÐ-get¡¢set-·½·¨¡£
-		public int getGid()
-		{
-			return gid;
-		}
-		public void setGid(int gid)
-		{
-			this.gid = gid;
-		}
-		public String getGname()
-		{
-			return gname;
-		}
-		public void setGname(String gname)
-		{
-			this.gname = gname;
-		}
-		public double getGprice()
-		{
-			return gprice;
-		}
-		public void setGprice(double gprice)
-		{
-			this.gprice = gprice;
-		}
-		public int getGnum()
-		{
-			return gnum;
-		}
-		public void setGnum(int gnum)
-		{
-			this.gnum = gnum;
-		}						
+    /**
+     * Õ¹Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
+     *
+     * @param gid,gname,gprice,gum
+     */
+    public Goods(int gid, String gname, double gprice, int gum) {
+        this.gid = gid;
+        this.gname = gname;
+        this.gprice = gprice;
+        this.gnum = gum;
+    }
+
+    /**
+     * ï¿½ï¿½ï¿½Ý±ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ï¢
+     *
+     * @param gid,gum
+     */
+    public Goods(int gid, int gnum) {
+        this.gid = gid;
+        this.gnum = gnum;
+    }
+
+    /**
+     * ï¿½ï¿½ï¿½Ý±ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ï¢
+     *
+     * @param gid,gprice
+     */
+    public Goods(int gid, double gprice) {
+        this.gid = gid;
+        this.gprice = gprice;
+    }
+
+    /**
+     * ï¿½ï¿½ï¿½Ý±ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ï¢
+     *
+     * @param gid,gname
+     */
+    public Goods(int gid, String gname) {
+        this.gid = gid;
+        this.gname = gname;
+    }
+
+    //ï¿½ï¿½ï¿½ï¿½-getï¿½ï¿½set-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public int getGid() {
+        return gid;
+    }
+
+    public void setGid(int gid) {
+        this.gid = gid;
+    }
+
+    public String getGname() {
+        return gname;
+    }
+
+    public void setGname(String gname) {
+        this.gname = gname;
+    }
+
+    public double getGprice() {
+        return gprice;
+    }
+
+    public void setGprice(double gprice) {
+        this.gprice = gprice;
+    }
+
+    public int getGnum() {
+        return gnum;
+    }
+
+    public void setGnum(int gnum) {
+        this.gnum = gnum;
+    }
 }

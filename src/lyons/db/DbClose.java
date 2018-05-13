@@ -6,78 +6,63 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * ¹Ø±Õ²Ù×÷Êý¾Ý¿âÊ±²úÉúµÄ×ÊÔ´Á÷
+ * ï¿½Ø±Õ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½
+ *
  * @author lyons(zhanglei)
  */
-public final class DbClose
-{
-	/**
-	 * ¹Ø±Õ Ìí¼Ó¹¦ÄÜ ×ÊÔ´
-	 * @param pstmt,rs,conn
-	 */
-		public static void addClose(PreparedStatement pstmt, Connection conn)
-		{
-			/*
-			 * ¶à¸ö try-catch ³ö·¢µã£º°²È«
-			 */
-			try
-			{
-				if (pstmt != null)
-				{
-					pstmt.close();
-				}
-			} catch (SQLException e1)
-			{
-				e1.printStackTrace();
-			}
-			try
-			{
-				if (conn != null)
-				{
-					conn.close();
-				}
-			} catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		
-		/**
-		 * ¹Ø±Õ×ÊÔ´
-		 * @param pstmt,rs,conn
-		 */
-		public static void queryClose(PreparedStatement pstmt, ResultSet rs, Connection conn)
-		{
-			try
-			{
-				if (pstmt != null)
-				{
-					pstmt.close();
-				}
-			} catch (SQLException e1)
-			{
-				e1.printStackTrace();
-			}
-			try
-			{
-				if (rs != null )
-				{
-					rs.close();
-				}
-			} catch (SQLException e1)
-			{
-				e1.printStackTrace();
-			}
-			try
-			{
-				if (conn != null)
-				{
-					conn.close();
-				}
-			} catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		
+public final class DbClose {
+    /**
+     * ï¿½Ø±ï¿½ ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½ ï¿½ï¿½Ô´
+     *
+     * @param pstmt,rs,conn
+     */
+    public static void addClose(PreparedStatement pstmt, Connection conn) {
+        /*
+         * ï¿½ï¿½ï¿½ try-catch ï¿½ï¿½ï¿½ï¿½ï¿½ã£ºï¿½ï¿½È«
+         */
+        try {
+            if (pstmt != null) {
+                pstmt.close();
+            }
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        try {
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * ï¿½Ø±ï¿½ï¿½ï¿½Ô´
+     *
+     * @param pstmt,rs,conn
+     */
+    public static void queryClose(PreparedStatement pstmt, ResultSet rs, Connection conn) {
+        try {
+            if (pstmt != null) {
+                pstmt.close();
+            }
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        try {
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

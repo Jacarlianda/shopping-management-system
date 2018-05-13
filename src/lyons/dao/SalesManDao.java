@@ -11,236 +11,210 @@ import lyons.db.DbConn;
 import lyons.entity.SalesMan;
 
 /**
- * Êý¾Ý¿âSalesMan±í²Ù×÷
+ * ï¿½ï¿½ï¿½Ý¿ï¿½SalesManï¿½ï¿½ï¿½ï¿½ï¿½
+ *
  * @author lyons(zhanglei)
  */
-public final class SalesManDao
-{
-	 Connection        conn  = null;
-	 PreparedStatement pstmt = null;
-	 ResultSet 		rs 	 	 = null;
-	
-	/**
-	 * 1.Ç°Ì¨ÊÕÒøµÇÂ½
-	 * @param sName ÓÃ»§Ãû
-	 * @return ArrayList<SalesMan> sPassWord,sId
-	 */
- 	public ArrayList<SalesMan> checkstandLog(String sName)
-	{
- 		ArrayList<SalesMan> salesManInfo = new ArrayList<SalesMan>();
-		conn = DbConn.getconn();
-		String sql = "SELECT SID,SPASSWORD FROM SALESMAN WHERE SNAME=?";
-				try
-				{
-					pstmt = conn.prepareStatement(sql);
-					pstmt.setString(1,sName);
-					
-					rs 	  = pstmt.executeQuery();
-					while (rs.next())
-					{
-						String sPassWord = rs.getString("spassword");
-						int sId = rs.getInt("sId");
-						SalesMan salesMan = new SalesMan(sId,sPassWord); 
-						salesManInfo.add(salesMan);						
-					}
-				} catch (SQLException e1)
-				{
-					e1.printStackTrace();
-				}finally
-				{
-					DbClose.queryClose(pstmt, rs, conn);
-				}
-	 return salesManInfo;
-	}
+public final class SalesManDao {
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
 
- 	/**
-	 * 2.Ìí¼ÓÊÛ»õÔ±
-	 * @param sName ÓÃ»§Ãû
-	 * @return boolean
-	 */
-		public boolean addSalesMan(SalesMan sName)
-		{
-			boolean bool = false;
-			conn = DbConn.getconn();
-			String sql = "INSERT INTO SALESMAN(SNAME,SPASSWORD) VALUES(?,?)";
-				
-				try
-				{
-					pstmt = conn.prepareStatement(sql);
-					pstmt.setString(1,sName.getSName());
-					pstmt.setString(2,sName.getSPassWord());
-					
-					int rs = pstmt.executeUpdate();
-					if (rs > 0)
-					{
-						bool = true;
-					}
-				} catch (SQLException e)
-				{
-					e.printStackTrace();
-				}finally
-						{
-							DbClose.addClose(pstmt,conn);
-						}
-		return bool;
-		}
-	
-	/**
-	 * 3.¸ü¸ÄÊÛ»õÔ±ÐÅÏ¢
-	 * @param key 	Òª¸ü¸ÄÏî
-	 * @param sName ÓÃ»§Ãû
-	 * @return boolean
-	 */
-	public  boolean updateSalesMan(int key,SalesMan sName)
-	{
-		
-		boolean bool = false;
-		conn = DbConn.getconn();
-			switch (key)
-			{
-			case 1:		//	3.1 ¸ü¸ÄÊÛ»õÔ±ÐÕÃû
-						String sqlName = "UPDATE SALESMAN SET SNAME=? WHERE SID=?";
-						
-						try
-					{
-						pstmt = conn.prepareStatement(sqlName);
-						pstmt.setString(1, sName.getSName());
-						pstmt.setInt(2,sName.getSId());
-						
-						int rs = pstmt.executeUpdate();
-						if (rs > 0)
-						{
-							bool = true;
-						}
-					} catch (SQLException e)
-					{
-						e.printStackTrace();
-					}finally{
-								DbClose.addClose(pstmt,conn);
-							}
-				break;
-			case 2:		//	3.2 ¸ü¸ÄÊÛ»õÔ±ÃÜÂë
-						String sqlPrice = "UPDATE SALESMAN SET SPASSWORD=? WHERE SID=?";
-						
-						try
-					{
-						pstmt = conn.prepareStatement(sqlPrice);
-						pstmt.setString(1,sName.getSPassWord());
-						pstmt.setInt(2, sName.getSId());
-						
-						int rs = pstmt.executeUpdate();
-						if (rs > 0)
-						{
-							bool = true;
-						}
-					} catch (SQLException e)
-					{
-						e.printStackTrace();
-					}finally{
-								DbClose.addClose(pstmt,conn);
-							}
-				break;
-			default:
-				break;
-			}
-		return bool;
-	}
+    /**
+     * 1.Ç°Ì¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â½
+     *
+     * @param sName ï¿½Ã»ï¿½ï¿½ï¿½
+     * @return ArrayList<SalesMan> sPassWord,sId
+     */
+    public ArrayList<SalesMan> checkstandLog(String sName) {
+        ArrayList<SalesMan> salesManInfo = new ArrayList<SalesMan>();
+        conn = DbConn.getconn();
+        String sql = "SELECT SID,SPASSWORD FROM SALESMAN WHERE SNAME=?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, sName);
 
-	/**
-	 * 4.É¾³ýÊÛ»õÔ±
-	 * @param sName ÓÃ»§Ãû
-	 * @return boolean
-	 */
-	public boolean deleteSalesMan(String sName)
-	{
-		boolean bool = false;
-		conn = DbConn.getconn();
-		String sql = "DELETE FROM SALESMAN WHERE SNAME=?";
-		try
-		{
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,sName);
-			int rs = pstmt.executeUpdate();
-			if (rs > 0)
-			{
-				bool = true;
-			}
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-		}finally{
-					DbClose.addClose(pstmt,conn);
-				}
-	 return bool;
-	}
-	
-	/**
-	 * 5.Ä£ºý²éÑ¯ÊÛ»õÔ±
-	 * @param sName ÓÃ»§Ãû
-	 * @return ArrayList<SalesMan>
-	 */
-	public ArrayList<SalesMan> querySalesMan(String sName)
-	{
-		ArrayList<SalesMan> SalesManList = new ArrayList<SalesMan>();
-		conn = DbConn.getconn();	
-	
-		sName = "%"+sName+"%";	//´ÓÓÃ»§´¦»ñÈ¡µÄ×Ö·û´®¼ÓÉÏ % ·ûºÅ£¬À´´ïµ½Ä£ºý²éÑ¯µÄÄ¿µÄ.×Ö·û´® µÄÁ¬½Ó»¹ÓÐ¸üÓÅÐãµÄ·½Ê½£¬´ýÓÅ»¯´úÂë£¡
-		String sql = "SELECT * FROM SALESMAN WHERE SNAME LIKE ?";  //¾ÓÈ»²»ÄÜÖ±½Ó¸ú % .Ö»ÄÜÓÃÁ¬½Ó×Ö·û´®µÄ·½Ê½
-		   try
-		   {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, sName);
-				rs = pstmt.executeQuery();
-				while (rs.next())
-				{
-					int sid = rs.getInt("sid");
-					String sname = rs.getString(2);
-					String sPassWord = rs.getString(3);
-					
-					SalesMan salesMan = new SalesMan(sid,sname,sPassWord);
-					SalesManList.add(salesMan);
-				}
-			} catch (SQLException e)
-			{
-				e.printStackTrace();
-			}finally
-					{
-						DbClose.queryClose(pstmt, rs, conn);
-					}
-		return SalesManList;
-	}
-	
-	/**
-	 * 6.ÏÔÊ¾ËùÓÐÊÛ»õÔ±
-	 * @return ArrayList<SalesMan>
-	 */
-	public  ArrayList<SalesMan> displaySalesMan()
-	{
-		ArrayList<SalesMan> salesManList = new ArrayList<SalesMan>();
-		conn = DbConn.getconn(); 
-		String sql = "SELECT * FROM SALESMAN";
-		
-		try
-		{
-			pstmt = conn.prepareStatement(sql);
-			rs =  pstmt.executeQuery();
-			while (rs.next())
-			{
-				int sId = rs.getInt(1);
-				String sName = rs.getString(2);
-				String sSpassWord = rs.getString(3);
-				
-				SalesMan salesMan = new SalesMan(sId,sName,sSpassWord);
-				salesManList.add(salesMan);
-			}
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-		}finally
-				{
-					DbClose.queryClose(pstmt, rs, conn);
-				}
-	 return salesManList;
-	}
-	
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                String sPassWord = rs.getString("spassword");
+                int sId = rs.getInt("sId");
+                SalesMan salesMan = new SalesMan(sId, sPassWord);
+                salesManInfo.add(salesMan);
+            }
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        } finally {
+            DbClose.queryClose(pstmt, rs, conn);
+        }
+        return salesManInfo;
+    }
+
+    /**
+     * 2.ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±
+     *
+     * @param sName ï¿½Ã»ï¿½ï¿½ï¿½
+     * @return boolean
+     */
+    public boolean addSalesMan(SalesMan sName) {
+        boolean bool = false;
+        conn = DbConn.getconn();
+        String sql = "INSERT INTO SALESMAN(SNAME,SPASSWORD) VALUES(?,?)";
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, sName.getSName());
+            pstmt.setString(2, sName.getSPassWord());
+
+            int rs = pstmt.executeUpdate();
+            if (rs > 0) {
+                bool = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DbClose.addClose(pstmt, conn);
+        }
+        return bool;
+    }
+
+    /**
+     * 3.ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½Ï¢
+     *
+     * @param key   Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * @param sName ï¿½Ã»ï¿½ï¿½ï¿½
+     * @return boolean
+     */
+    public boolean updateSalesMan(int key, SalesMan sName) {
+
+        boolean bool = false;
+        conn = DbConn.getconn();
+        switch (key) {
+            case 1:        //	3.1 ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
+                String sqlName = "UPDATE SALESMAN SET SNAME=? WHERE SID=?";
+
+                try {
+                    pstmt = conn.prepareStatement(sqlName);
+                    pstmt.setString(1, sName.getSName());
+                    pstmt.setInt(2, sName.getSId());
+
+                    int rs = pstmt.executeUpdate();
+                    if (rs > 0) {
+                        bool = true;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } finally {
+                    DbClose.addClose(pstmt, conn);
+                }
+                break;
+            case 2:        //	3.2 ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
+                String sqlPrice = "UPDATE SALESMAN SET SPASSWORD=? WHERE SID=?";
+
+                try {
+                    pstmt = conn.prepareStatement(sqlPrice);
+                    pstmt.setString(1, sName.getSPassWord());
+                    pstmt.setInt(2, sName.getSId());
+
+                    int rs = pstmt.executeUpdate();
+                    if (rs > 0) {
+                        bool = true;
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } finally {
+                    DbClose.addClose(pstmt, conn);
+                }
+                break;
+            default:
+                break;
+        }
+        return bool;
+    }
+
+    /**
+     * 4.É¾ï¿½ï¿½ï¿½Û»ï¿½Ô±
+     *
+     * @param sName ï¿½Ã»ï¿½ï¿½ï¿½
+     * @return boolean
+     */
+    public boolean deleteSalesMan(String sName) {
+        boolean bool = false;
+        conn = DbConn.getconn();
+        String sql = "DELETE FROM SALESMAN WHERE SNAME=?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, sName);
+            int rs = pstmt.executeUpdate();
+            if (rs > 0) {
+                bool = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DbClose.addClose(pstmt, conn);
+        }
+        return bool;
+    }
+
+    /**
+     * 5.Ä£ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½Û»ï¿½Ô±
+     *
+     * @param sName ï¿½Ã»ï¿½ï¿½ï¿½
+     * @return ArrayList<SalesMan>
+     */
+    public ArrayList<SalesMan> querySalesMan(String sName) {
+        ArrayList<SalesMan> SalesManList = new ArrayList<SalesMan>();
+        conn = DbConn.getconn();
+
+        sName = "%" + sName + "%";    //ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ % ï¿½ï¿½ï¿½Å£ï¿½ï¿½ï¿½ï¿½ïµ½Ä£ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½Ä¿ï¿½ï¿½.ï¿½Ö·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó»ï¿½ï¿½Ð¸ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½Å»ï¿½ï¿½ï¿½ï¿½ë£¡
+        String sql = "SELECT * FROM SALESMAN WHERE SNAME LIKE ?";  //ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó¸ï¿½ % .Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ä·ï¿½Ê½
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, sName);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int sid = rs.getInt("sid");
+                String sname = rs.getString(2);
+                String sPassWord = rs.getString(3);
+
+                SalesMan salesMan = new SalesMan(sid, sname, sPassWord);
+                SalesManList.add(salesMan);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DbClose.queryClose(pstmt, rs, conn);
+        }
+        return SalesManList;
+    }
+
+    /**
+     * 6.ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ô±
+     *
+     * @return ArrayList<SalesMan>
+     */
+    public ArrayList<SalesMan> displaySalesMan() {
+        ArrayList<SalesMan> salesManList = new ArrayList<SalesMan>();
+        conn = DbConn.getconn();
+        String sql = "SELECT * FROM SALESMAN";
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int sId = rs.getInt(1);
+                String sName = rs.getString(2);
+                String sSpassWord = rs.getString(3);
+
+                SalesMan salesMan = new SalesMan(sId, sName, sSpassWord);
+                salesManList.add(salesMan);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DbClose.queryClose(pstmt, rs, conn);
+        }
+        return salesManList;
+    }
+
 }

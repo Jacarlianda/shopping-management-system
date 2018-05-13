@@ -5,33 +5,28 @@ import java.sql.SQLException;
 import java.sql.Connection;
 
 /**
- * Á¬½ÓoracleÊý¾Ý¿â
+ * ï¿½ï¿½ï¿½ï¿½oracleï¿½ï¿½ï¿½Ý¿ï¿½
+ *
  * @author lyons(zhanglei)
  */
-public final class DbConn
-{
-	public static  Connection getconn()
-	{
-		Connection conn = null;
-		
-		String user   = "scott";
-		String passwd = "tiger";
-		String url = "jdbc:oracle:thin:@localhost:1521:orcl";//orclÎªoracleÊý¾Ý¿âÊµÀýÃû×Ö
-		
-		//ÒÑ¼ÓÔØÍêÇý¶¯
-		try
-		{
-			Class.forName("oracle.jdbc.driver.OracleDriver"); 
-			conn = DriverManager.getConnection(url,user,passwd);
-		}catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		catch (ClassNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-		return conn;
-	}
+public final class DbConn {
+    public static Connection getconn() {
+        Connection conn = null;
+
+        String user = "scott";
+        String passwd = "tiger";
+        String url = "jdbc:oracle:thin:@localhost:1521:orcl";//orclÎªoracleï¿½ï¿½ï¿½Ý¿ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+        //ï¿½Ñ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            conn = DriverManager.getConnection(url, user, passwd);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return conn;
+    }
 
 }

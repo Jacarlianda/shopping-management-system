@@ -7,54 +7,45 @@ import lyons.entity.Gsales;
 import lyons.tools.ScannerChoice;
 
 /**
- * µ±ÈÕÂô³öÉÌÆ·ÁĞ±í½çÃæ
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Ğ±ï¿½ï¿½ï¿½ï¿½
+ *
  * @author lyons(zhanglei)
  */
 
-public final class GsalesPage
-{
-	public static void dailySaleGoodsPage()
-	{
-		System.out.println("\tÕıÔÚÖ´ĞĞÁĞ³öµ±ÈÕÊÛ³öÉÌÆ·ÁĞ±í²Ù×÷\n");
-		ArrayList<Gsales> GsalesList = new GsalesDao().dailyGsales();//µ±ÈÕÊÛ³öÉÌÆ·Êı×é¼¯
+public final class GsalesPage {
+    public static void dailySaleGoodsPage() {
+        System.out.println("\tï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½Ğ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û³ï¿½ï¿½ï¿½Æ·ï¿½Ğ±ï¿½ï¿½ï¿½ï¿½\n");
+        ArrayList<Gsales> GsalesList = new GsalesDao().dailyGsales();//ï¿½ï¿½ï¿½ï¿½ï¿½Û³ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½é¼¯
 
-		if (GsalesList.size() <= 0)
-		{
-			System.err.println("\t£¡£¡½ñÈÕÎŞÉÌÆ·ÊÛ³ö£¡£¡");
-			MainPage.commodityManagementPage();
-		}else 
-			{
-				System.out.println("\t\t\t\t½ñÈÕÊÛ³öÉÌÆ·ÁĞ±í\n");
-				System.out.println("\tÉÌÆ·Ãû³Æ\t\tÉÌÆ·¼Û¸ñ\t\tÉÌÆ·ÊıÁ¿\t\tÏúÁ¿\t\t±¸×¢\n");
-	
-				for (int i = 0,length = GsalesList.size(); i < length; i++)
-				{
-					//»ñÈ¡ÊÛ³öÉÌÆ·£ºgname,gprice,gnum, allSum (µ¥ÖÖÉÌÆ·µÄÏúÊÛ×ÜºÍ)
-					Gsales gSales = GsalesList.get(i);
-					System.out.print("\t"+gSales.getGName()+"\t\t"+gSales.getGPrice()+" $\t\t"+gSales.getGNum()+"\t\t"+gSales.getAllSnum());
-					int gNUm = gSales.getGNum();
-					if (gNUm==0)
-					{
-						System.out.println("\t\t¸ÃÉÌÆ·ÒÑÊÛ¿Õ");
-					}else if (gNUm<10)
-							{
-								System.out.println("\t\t¸ÃÉÌÆ·ÒÑ²»×ã10¼ş");
-							}else 
-								{
-									System.out.println("\t\t-");
-								}
-				  System.out.println("\t");
-				}
-				do
-				{
-					System.out.println("\n\nÊäÈë 0 ·µ»ØÉÏÒ»¼¶²Ëµ¥");
-					String choice = ScannerChoice.ScannerInfoString();
-					if ("0".equals(choice))
-					{
-						MainPage.salesManManagementPage();
-					}
-				 MainPage.commodityManagementPage();
-				} while (true);
-			}
-	}
+        if (GsalesList.size() <= 0) {
+            System.err.println("\tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Û³ï¿½ï¿½ï¿½ï¿½ï¿½");
+            MainPage.commodityManagementPage();
+        } else {
+            System.out.println("\t\t\t\tï¿½ï¿½ï¿½ï¿½ï¿½Û³ï¿½ï¿½ï¿½Æ·ï¿½Ğ±ï¿½\n");
+            System.out.println("\tï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½\t\tï¿½ï¿½Æ·ï¿½Û¸ï¿½\t\tï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½\t\tï¿½ï¿½ï¿½ï¿½\t\tï¿½ï¿½×¢\n");
+
+            for (int i = 0, length = GsalesList.size(); i < length; i++) {
+                //ï¿½ï¿½È¡ï¿½Û³ï¿½ï¿½ï¿½Æ·ï¿½ï¿½gname,gprice,gnum, allSum (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üºï¿½)
+                Gsales gSales = GsalesList.get(i);
+                System.out.print("\t" + gSales.getGName() + "\t\t" + gSales.getGPrice() + " $\t\t" + gSales.getGNum() + "\t\t" + gSales.getAllSnum());
+                int gNUm = gSales.getGNum();
+                if (gNUm == 0) {
+                    System.out.println("\t\tï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Û¿ï¿½");
+                } else if (gNUm < 10) {
+                    System.out.println("\t\tï¿½ï¿½ï¿½ï¿½Æ·ï¿½Ñ²ï¿½ï¿½ï¿½10ï¿½ï¿½");
+                } else {
+                    System.out.println("\t\t-");
+                }
+                System.out.println("\t");
+            }
+            do {
+                System.out.println("\n\nï¿½ï¿½ï¿½ï¿½ 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ëµï¿½");
+                String choice = ScannerChoice.ScannerInfoString();
+                if ("0".equals(choice)) {
+                    MainPage.salesManManagementPage();
+                }
+                MainPage.commodityManagementPage();
+            } while (true);
+        }
+    }
 }
