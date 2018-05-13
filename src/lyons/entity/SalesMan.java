@@ -1,7 +1,7 @@
 package lyons.entity;
 
 /**
- * SalesMan �ۻ�Աʵ����
+ * SalesMan 售货员实体类
  *
  * @author lyons(zhanglei)
  */
@@ -12,7 +12,7 @@ public final class SalesMan {
     private String sPassWord;
 
     /**
-     * ��֤�û���½
+     * 验证用户登陆
      *
      * @param sId,spassWord
      */
@@ -22,7 +22,7 @@ public final class SalesMan {
     }
 
     /**
-     * ��ѯ�û��������û�����
+     * 查询用户、更改用户密码
      *
      * @param sId,sName,sPassWord
      */
@@ -33,7 +33,7 @@ public final class SalesMan {
     }
 
     /**
-     * ����û�
+     * 添加用户
      *
      * @param NsNameame,sPassWord
      */
@@ -43,7 +43,7 @@ public final class SalesMan {
     }
 
 
-    //����get.set����
+    //共有get.set方法
     public int getSId() {
         return sId;
     }

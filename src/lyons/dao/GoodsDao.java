@@ -12,7 +12,7 @@ import lyons.entity.Goods;
 import lyons.tools.ScannerChoice;
 
 /**
- * ���ݿ�goods�����
+ * 数据库goods表操作
  *
  * @author lyons(zhanglei)
  */
@@ -22,9 +22,9 @@ public final class GoodsDao {
     ResultSet rs = null;
 
     /**
-     * 1.�����Ʒ�����ݿ�goods��
+     * 1.添加商品到数据库goods表
      *
-     * @param goods ��Ʒ����
+     * @param goods 商品对象
      * @return boolean
      */
     public boolean addGoods(Goods goods) {
@@ -51,17 +51,17 @@ public final class GoodsDao {
     }
 
     /**
-     * 2.������Ʒ��Ϣ�����ݿ�goods��
+     * 2.更改商品信息到数据库goods表
      *
-     * @param key   ѡ��Ҫ������Ʒ��Ϣ
-     * @param goods ��Ʒ����
+     * @param key   选择要更改商品信息
+     * @param goods 商品对象
      * @return boolean
      */
     public boolean updateGoods(int key, Goods goods) {
         boolean bool = false;
         conn = DbConn.getconn();
         switch (key) {
-            case 1:        //	key=1,������Ʒ����
+            case 1:        //	key=1,更改商品名称
                 String sqlName = "UPDATE GOODS SET GNAME=? WHERE GID=?";
 
                 try {
@@ -79,7 +79,7 @@ public final class GoodsDao {
                     DbClose.addClose(pstmt, conn);
                 }
                 break;
-            case 2:        //	key=2,������Ʒ�۸�
+            case 2:        //	key=2,更改商品价格
                 String sqlPrice = "UPDATE GOODS SET GPRICE=? WHERE GID=?";
 
                 try {
@@ -97,7 +97,7 @@ public final class GoodsDao {
                     DbClose.addClose(pstmt, conn);
                 }
                 break;
-            case 3:        //	key=3,������Ʒ����
+            case 3:        //	key=3,更改商品数量
                 String sqlNum = "UPDATE GOODS SET GNUM=? WHERE GID=?";
 
                 try {
@@ -122,9 +122,9 @@ public final class GoodsDao {
     }
 
     /**
-     * 3.�����ݿ�goods����-�h����Ʒ
+     * 3.从数据库goods表中-刪除商品
      *
-     * @param gid ��Ʒ���
+     * @param gid 商品编号
      * @return boolean
      */
     public boolean deleteGoods(int gid) {
@@ -148,9 +148,9 @@ public final class GoodsDao {
     }
 
     /**
-     * 4.��ѯ��Ʒ��Ϣ
+     * 4.查询商品信息
      *
-     * @param key ��ѯ��ʽ
+     * @param key 查询方式
      * @return ArrayList<Goods>
      */
     public ArrayList<Goods> queryGoods(int key) {
@@ -159,7 +159,7 @@ public final class GoodsDao {
 
         switch (key) {
             case 1:
-                //	key=1��Ʒ ���� �����ѯ
+                //	key=1商品 数量 升序查询
                 String sqlGnum = "SELECT * FROM GOODS ORDER BY GNUM ASC";
                 try {
                     pstmt = conn.prepareStatement(sqlGnum);
@@ -180,7 +180,7 @@ public final class GoodsDao {
                 }
                 break;
             case 2:
-                //	key=2��Ʒ �۸� �����ѯ
+                //	key=2商品 价格 升序查询
                 String sqlGprice = "SELECT * FROM GOODS ORDER BY GPRICE ASC";
                 try {
                     pstmt = conn.prepareStatement(sqlGprice);
@@ -201,7 +201,7 @@ public final class GoodsDao {
                 }
                 break;
             case 3:
-                //	key=3��Ʒ �ؼ��� ��ѯ
+                //	key=3商品 关键字 查询
                 String nameGet = ScannerChoice.ScannerInfoString();
                 String sqlGname = "SELECT * FROM GOODS WHERE GNAME LIKE '%'||?||'%'";
                 try {
@@ -230,7 +230,7 @@ public final class GoodsDao {
     }
 
     /**
-     * 5.��ʾ������Ʒ��Ϣ
+     * 5.显示所有商品信息
      *
      * @return ArrayList<Goods>
      */
@@ -246,11 +246,11 @@ public final class GoodsDao {
             while (rs.next()) {
                 int gid = rs.getInt(1);
                 String gname = rs.getString(2);
-                double gprice = rs.getDouble("gprice");        //˫����+������,Ҳ�������ֱ�ʾ.
+                double gprice = rs.getDouble("gprice");        //双引号+主键名,也可用数字表示.
                 int gnum = rs.getInt(4);
 
-                Goods goods = new Goods(gid, gname, gprice, gnum);    //����Goods���󣬲���ֵ.
-                goodsList.add(goods);                            //�����Ϣ����̬������.
+                Goods goods = new Goods(gid, gname, gprice, gnum);    //创建Goods对象，并赋值.
+                goodsList.add(goods);                            //添加信息到动态数组中.
             }
         } catch (SQLException e) {
             e.printStackTrace();

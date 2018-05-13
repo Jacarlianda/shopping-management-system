@@ -11,7 +11,7 @@ import lyons.db.DbConn;
 import lyons.entity.Gsales;
 
 /**
- * ���ݿ�gSales�����
+ * 数据库gSales表操作
  *
  * @author lyons(zhanglei)
  */
@@ -22,16 +22,16 @@ public final class GsalesDao {
     ResultSet rs = null;
 
     /**
-     * 1.������������Ʒ
+     * 1.当天卖出的商品
      *
-     * @return ArrayList<Gsales> ��Ʒ��Ϣ,���� allSum (������Ʒ�������ܺ�)
+     * @return ArrayList<Gsales> 商品信息,包括 allSum (单种商品的销售总和)
      */
     public ArrayList<Gsales> dailyGsales() {
         ArrayList<Gsales> GsalesList = new ArrayList<Gsales>();
         conn = DbConn.getconn();
 
-        //����ʱ��=��ǰʱ�� trunc(sdate) =trunc(sysdate) ��λ����
-        //sql�����ͼ�files/sql/java_sql.sql
+        //售卖时间=当前时间 trunc(sdate) =trunc(sysdate) 单位：天
+        //sql语句解释见files/sql/java_sql.sql
         String sql = "select gname,gprice,gnum, allSum from goods, (select gid as salesid,sum(snum) as allSum from gsales where trunc(sdate) =trunc(sysdate) group by gid) where gid = salesid";
         try {
             pstmt = conn.prepareStatement(sql);
@@ -54,9 +54,9 @@ public final class GsalesDao {
     }
 
     /**
-     * 2.�������-��sales���в�����Ʒ���ݣ�
+     * 2.购物结算-向sales表中插入商品数据！
      *
-     * @param gSales ������Ʒ����
+     * @param gSales 售卖商品对象
      * @return boolean
      */
     public boolean shoppingSettlement(Gsales gSales) {

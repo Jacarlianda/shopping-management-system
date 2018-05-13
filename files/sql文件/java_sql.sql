@@ -1,25 +1,30 @@
-select * from gsales
-select * from goods
-select * from salesman
+--æ ¹æ®æ•°æ®åº“è¯´æ˜ä¹¦å»ºç«‹ è¥ä¸šå‘˜è¡¨ //SID è‡ªåŠ¨ç”Ÿæˆ
 
---Õ¹Ê¾ËùÓĞÉÌÆ·ÁĞ±íËùÓÃ¶à±íÁªÁ¢µÄsql½âÊÍ£º
-------------------------------------------------------
-select gname,gprice,gnum, allSum                        --ËùÇóĞÂ±íµÄÏîÄ¿
+CREATE TABLE salesman
+(
+       sid        NUMBER(10) PRIMARY KEY,
+       sname      VARCHAR2(10) NOT NULL UNIQUE,
+       spassword  VARCHAR(20) NOT NULL
+       
+)
 
-from goods, (select gid as salesid,sum(snum) as allSum  --Õû¸ö´óÀ¨ºÅÀïÃæ´ú±íÒ»ÕÅ±í
-            from gsales                                   --½«gidÏàÍ¬µÄÏà¼ÓÇóºÍ
-            where trunc(sdate) = trunc(sysdate)            --Ê±¼ä´ÓÏµÍ³»ñÈ¡£¬Ìõ¼şÊÇÓë±íÖĞsdateÊ±¼äÏàÍ¬
-            group by gid)
-where gid = salesid                                      --goods±íÓë´óÀ¨ºÅÀïµÄÕâÕÅ±í£¬È¡gidÓësalessidµÄ½»¼¯
-------------------------------------------------------
+--ç”Ÿæˆåºåˆ—
 
---ÖªÊ¶³äµç£º
-select trunc(sysdate) from dual;
-select trunc(sysdate) + 1 from dual;
-select sysdate from dual;       --´ÓÏµÍ³»ñÈ¡Ê±¼ä
+CREATE SEQUENCE salesman_seq
+       START WITH     1
+       INCREMENT BY   1
+       MINVALUE       1
+       MAXVALUE     100000
+       NOCYCLE
+       CACHE        10
+       
+--è§¦å‘å™¨
 
-select sid,to_char(sdate,'yyyy/mm/dd') from gsales --×ª»»Ê±¼äÊä³ö¸ñÊ½£¬×¢Òâ£º×Ö¶ÎµÄ¸ñÊ½²»ÄÜ±»×ª»»
-
-
-
-
+CREATE TRIGGER salesman_trigger
+       BEFORE INSERT ON salesman
+       FOR EACH ROW
+       BEGIN
+           SELECT salesman_seq.nextval INTO :new.sid FROM dual;
+       END;
+       
+--ç”¨æˆ·è¿åå”¯ä¸€çº¦æŸå¤šæ¬¡åˆ›å»ºä¿¡æ¯æ—¶ï¼Œä¼šå ç”¨è‡ªåŠ¨ç”Ÿæˆçš„åºåˆ—å·ï¼ˆæˆ‘è§‰å¾—è¿™ä¸ªå¯èƒ½å­˜åœ¨å®‰å…¨éšæ‚£ï¼‰

@@ -1,7 +1,7 @@
 package lyons.entity;
 
 /**
- * Gsales g�������ʵ����
+ * Gsales g购物结算实体类
  *
  * @author lyons(zhanglei)
  */
@@ -14,10 +14,10 @@ public final class Gsales {
     private String gName;
     private double gPrice;
     private int gNum;
-    private int allSnum; //������Ʒ�����ܺ�
+    private int allSnum; //单种商品销量总和
 
     /**
-     * �������
+     * 购物结算
      *
      * @param gId,sId,sNum
      */
@@ -28,7 +28,7 @@ public final class Gsales {
     }
 
     /**
-     * չ����Ʒ�б�
+     * 展现商品列表
      *
      * @param gName,gPrice,gNum,allSnum
      */
@@ -39,7 +39,7 @@ public final class Gsales {
         this.allSnum = allSnum;
     }
 
-    //����set��get
+    //共有set、get
     public int getGId() {
         return gId;
     }

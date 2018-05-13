@@ -6,19 +6,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * �رղ������ݿ�ʱ��������Դ��
+ * 关闭操作数据库时产生的资源流
  *
  * @author lyons(zhanglei)
  */
 public final class DbClose {
     /**
-     * �ر� ��ӹ��� ��Դ
+     * 关闭 添加功能 资源
      *
      * @param pstmt,rs,conn
      */
     public static void addClose(PreparedStatement pstmt, Connection conn) {
         /*
-         * ��� try-catch �����㣺��ȫ
+         * 多个 try-catch 出发点：安全
          */
         try {
             if (pstmt != null) {
@@ -37,7 +37,7 @@ public final class DbClose {
     }
 
     /**
-     * �ر���Դ
+     * 关闭资源
      *
      * @param pstmt,rs,conn
      */

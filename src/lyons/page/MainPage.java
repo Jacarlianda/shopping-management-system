@@ -13,42 +13,42 @@ import lyons.tools.QueryPrint;
 import lyons.tools.ScannerChoice;
 
 /**
- * �̳��������ϵͳ������
+ * 商超购物管理系统主界面
  *
- * @author ����
+ * @author 张磊
  * @version 1.0
  */
 
 public final class MainPage extends ScannerChoice {
 
     /**
-     * ��ں���
+     * 入口函数
      */
     public static void main(String[] args) {
         MainPage.mianPage();
     }
 
     /**
-     * ������ ��ʵ�֣���У�飡
+     * 主界面 已实现！已校验！
      */
     public static void mianPage() {
         System.out.println("***************************\n");
-        System.out.println("\t 1.��Ʒά��\n");
-        System.out.println("\t 2.ǰ̨����\n");
-        System.out.println("\t 3.��Ʒ����\n");
+        System.out.println("\t 1.商品维护\n");
+        System.out.println("\t 2.前台收银\n");
+        System.out.println("\t 3.商品管理\n");
         System.out.println("***************************");
 
-        System.out.println("\n������ѡ��,���߰�0�˳�.");
+        System.out.println("\n请输入选项,或者按0退出.");
         do {
             String choice = ScannerInfoString();
-            String regex = "[0-3]";//������ʽ
+            String regex = "[0-3]";//正则表达式
             if (choice.matches(regex)) {
                 int info = Integer.parseInt(choice);
                 switch (info) {
                     case 0:
                         System.out.println("------------------");
-                        System.out.println("���Ѿ��˳�ϵͳ!");
-                        System.exit(1);//�˳����򣬷���ֵ�������
+                        System.out.println("您已经退出系统!");
+                        System.exit(1);//退出程序，返回值随便设置
                         break;
                     case 1:
                         MaintenancePage();
@@ -63,26 +63,26 @@ public final class MainPage extends ScannerChoice {
                         break;
                 }
             }
-            System.err.println("!��������!");
-            System.out.println("����ѡ����߰�0�˳�.");
+            System.err.println("!输入有误!");
+            System.out.println("重新选择或者按0退出.");
         } while (true);
 
     }
 
     /**
-     * 1.��Ʒά������
+     * 1.商品维护界面
      */
     public static void MaintenancePage() {
 
         System.out.println("***************************\n");
-        System.out.println("\t 1.�����Ʒ\n");
-        System.out.println("\t 2.������Ʒ\n");
-        System.out.println("\t 3.ɾ����Ʒ\n");
-        System.out.println("\t 4.��ѯ��Ʒ\n");
-        System.out.println("\t 5.��ʾ������Ʒ\n");
+        System.out.println("\t 1.添加商品\n");
+        System.out.println("\t 2.更改商品\n");
+        System.out.println("\t 3.删除商品\n");
+        System.out.println("\t 4.查询商品\n");
+        System.out.println("\t 5.显示所有商品\n");
         System.out.println("***************************");
 
-        System.out.println("\n������ѡ��,���߰� 0 ������һ���˵�.");
+        System.out.println("\n请输入选项,或者按 0 返回上一级菜单.");
         do {
             String choice = ScannerInfoString();
             String regex = "[0-5]";
@@ -111,20 +111,20 @@ public final class MainPage extends ScannerChoice {
                         break;
                 }
             }
-            System.err.println("!��������!");
-            System.out.println("��������� 0 ������һ���˵�.");
+            System.err.println("!输入有误!");
+            System.out.println("重新输入或按 0 返回上一级菜单.");
         } while (true);
     }
 
     /**
-     * 2.ǰ̨������½����
+     * 2.前台收银登陆界面
      */
     public static void checkstandLogPage() {
-        System.out.println("\n*******��ӭʹ���̳��������ϵͳ*******\n");
-        System.out.println("\t 1.��¼ϵͳ\n");
-        System.out.println("\t 2.�˳�\n");
+        System.out.println("\n*******欢迎使用商超购物管理系统*******\n");
+        System.out.println("\t 1.登录系统\n");
+        System.out.println("\t 2.退出\n");
         System.out.println("-----------------------------");
-        System.out.println("������ѡ��,���߰� 0 ������һ���˵�.");
+        System.out.println("请输入选项,或者按 0 返回上一级菜单.");
 
         do {
             String choice = ScannerInfoString();
@@ -136,63 +136,63 @@ public final class MainPage extends ScannerChoice {
                         mianPage();
                         break;
                     case 1:
-                        int loginTimes = 3;//3�ε�½����
+                        int loginTimes = 3;//3次登陆机会
 
                         while (loginTimes != 0) {
                             loginTimes--;
-                            System.out.println("---�û���---");
+                            System.out.println("---用户名---");
                             String sName = ScannerInfoString();
-                            System.out.println("---����---");
+                            System.out.println("---密码---");
                             String sPssWord = ScannerInfoString();
 
-                            ArrayList<SalesMan> salesManInfo = new SalesManDao().checkstandLog(sName); //���û��������ݿ��л�ȡ�û�����.
+                            ArrayList<SalesMan> salesManInfo = new SalesManDao().checkstandLog(sName); //以用户名从数据库中获取用户密码.
 
-                            if (salesManInfo == null || salesManInfo.size() == 0)//û�д��û��������
+                            if (salesManInfo == null || salesManInfo.size() == 0)//没有此用户的情况！
                             {
-                                System.err.println("\t!!�û�����������!!\n");
-                                System.out.println("\nʣ���½������" + loginTimes);
+                                System.err.println("\t!!用户名输入有误!!\n");
+                                System.out.println("\n剩余登陆次数：" + loginTimes);
                             } else {
-                                SalesMan salesMan = salesManInfo.get(0);//�˵أ�ֻ������һ����ֵ��ֻ����1�μ���
+                                SalesMan salesMan = salesManInfo.get(0);//此地，只返回了一组数值，只遍历1次即可
 
-                                if (sPssWord.equals(salesMan.getSPassWord()))//��֤���룬��½�ɹ��ˣ���
+                                if (sPssWord.equals(salesMan.getSPassWord()))//验证密码，登陆成功了！！
                                 {
-                                    System.out.println("\t  ---�˻��ɹ���½---");
-                                    shoppingSettlementPage(salesMan.getSId());//����ΪӪҵԱ���sId
+                                    System.out.println("\t  ---账户成功登陆---");
+                                    shoppingSettlementPage(salesMan.getSId());//参数为营业员编号sId
                                 } else {
-                                    System.err.println("\t!!�������!!\n");
-                                    System.out.println("\nʣ���½������" + loginTimes);
+                                    System.err.println("\t!!密码错误!!\n");
+                                    System.out.println("\n剩余登陆次数：" + loginTimes);
                                 }
                             }
                         }
                         //loginTimes = 0
                         System.out.println("------------------");
-                        System.err.println("\t�������ѱ�ǿ���˳�ϵͳ����");
+                        System.err.println("\t！！您已被强制退出系统！！");
                         System.exit(1);
                         break;
                     case 2:
                         System.out.println("------------------");
-                        System.out.println("���Ѿ��˳�ϵͳ!");
+                        System.out.println("您已经退出系统!");
                         System.exit(-1);
                         break;
                     default:
                         break;
                 }
             }
-            System.err.println("!��������!");
-            System.out.println("��������� 0 ������һ���˵�");
+            System.err.println("!输入有误!");
+            System.out.println("重新输入或按 0 返回上一级菜单");
         } while (true);
     }
 
     /**
-     * 3.��Ʒ�������
+     * 3.商品管理界面
      */
     public static void commodityManagementPage() {
         System.out.println("***************************\n");
-        System.out.println("\t 1.�ۻ�Ա����\n");
-        System.out.println("\t 2.�г����������б�\n");
+        System.out.println("\t 1.售货员管理\n");
+        System.out.println("\t 2.列出当日卖出列表\n");
         System.out.println("***************************");
 
-        System.out.println("\n������ѡ��,���߰� 0 ������һ���˵�.");
+        System.out.println("\n请输入选项,或者按 0 返回上一级菜单.");
         do {
             String choice = ScannerInfoString();
             String regex = "[0-2]";
@@ -212,105 +212,105 @@ public final class MainPage extends ScannerChoice {
                         break;
                 }
             }
-            System.err.println("!��������!");
-            System.out.println("��������� 0 ������һ���˵�.");
+            System.err.println("!输入有误!");
+            System.out.println("重新输入或按 0 返回上一级菜单.");
         } while (true);
     }
 
     /**
-     * ����������
+     * 购物结算界面
      */
     public static void shoppingSettlementPage(int salesManSid) {
-        System.out.println("\n\t*******�������*******\n");
+        System.out.println("\n\t*******购物结算*******\n");
         do {
-            System.out.println("�� S ��ʼ�������.�� 0 �����˻���¼����");
+            System.out.println("按 S 开始购物结算.按 0 返回账户登录界面");
             String choNext = ScannerInfoString();
             if ("0".equals(choNext)) {
                 checkstandLogPage();
 
             } else if ("s".equals(choNext) || "S".equals(choNext)) {
-                System.out.println("\n--��������Ʒ�ؼ���--");
+                System.out.println("\n--请输入商品关键字--");
 
-                int gid = QueryPrint.querySettlement();//����Ʒ��������ֻ��һ��ʱ������Ʒgid�ţ���Ʒ���ۿ�ʱ���� -1. >1��ʱ����-2 . ���޴���Ʒʱ����-3
+                int gid = QueryPrint.querySettlement();//当商品件数有且只有一件时返回商品gid号，商品已售空时返回 -1. >1件时返回-2 . 查无此商品时返回-3
 
                 switch (gid) {
                     case -3:
-                        //�޴���Ʒ,����ѭ��
+                        //无此商品,重新循环
                         break;
                     case -1:
-                        System.err.println("\t--��Ǹ������Ʒ���ۿ�--");
+                        System.err.println("\t--抱歉，该商品已售空--");
                         break;
 
                     default:
-                        System.out.println("--����Ʒ���ѡ����Ʒ--");
+                        System.out.println("--按商品编号选择商品--");
 
-                        //����gid�����þ�ȷ��ѯ��Ʒ
+                        //传参gid，调用精确查询商品
                         int shoppingGid = ScannerNum();
 
                         ArrayList<Goods> goodsList = new QueryPrint().queryGoodsKey(shoppingGid, null);
                         if (goodsList == null || goodsList.size() == 0) {
-                            System.err.println("\t�������޴���Ʒ ����\n");
+                            System.err.println("\t！！查无此商品 ！！\n");
                         } else {
                             Goods goods = goodsList.get(0);
                             int gNum = goods.getGnum();
                             double gPrice = goods.getGprice();
 
-                            System.out.println("--�����빺������--");
+                            System.out.println("--请输入购买数量--");
                             do {
-                                int choicegoodsNum = ScannerNum();//��ȡ�û�Ҫ���������
+                                int choicegoodsNum = ScannerNum();//获取用户要购买的数量
 
                                 if (choicegoodsNum > gNum) {
-                                    System.err.println("\t�����ֿⴢ�����㣡��");
-                                    System.out.println("--���������빺������--");
+                                    System.err.println("\t！！仓库储备不足！！");
+                                    System.out.println("--请重新输入购买数量--");
                                 } else {
-                                    double allPrice = Arith.mul(choicegoodsNum, gPrice);//����BigDecimal���˷�����
-                                    System.out.println("\t\t\t  ���ﳵ����\n");
-                                    System.out.println("\t\t��Ʒ����\t��Ʒ����\t��������\t�ܼ�\n");
+                                    double allPrice = Arith.mul(choicegoodsNum, gPrice);//利用BigDecimal作乘法运算
+                                    System.out.println("\t\t\t  购物车结算\n");
+                                    System.out.println("\t\t商品名称\t商品单价\t购买数量\t总价\n");
                                     System.out.println("\t\t" + goods.getGname() + "\t" + gPrice + " $\t" + choicegoodsNum + "\t" + allPrice + " $\n");
 
                                     do {
-                                        System.out.println("ȷ�Ϲ���Y/N");
+                                        System.out.println("确认购买：Y/N");
                                         String choShopping = ScannerInfoString();
                                         if ("y".equals(choShopping) || "Y".equals(choShopping)) {
-                                            System.out.println("\n�ܼۣ�" + allPrice + " $");
-                                            System.out.println("\nʵ�ʽɷѽ��");
+                                            System.out.println("\n总价：" + allPrice + " $");
+                                            System.out.println("\n实际缴费金额");
 
                                             do {
                                                 double amount = ScannerInfo();
-                                                double balance = Arith.sub(amount, allPrice);  //�û���Ǯ�빺����Ʒ�ܼۼ�Ĳ��
+                                                double balance = Arith.sub(amount, allPrice);  //用户交钱与购买物品总价间的差额
                                                 if (balance < 0) {
-                                                    System.err.println("\t�������ɽ��㣡��");
-                                                    System.out.println("\n������������ɽ��($)");
+                                                    System.err.println("\t！！缴纳金额不足！！");
+                                                    System.out.println("\n请重新输入缴纳金额($)");
                                                 } else {
-																	
-		/*	�����ǹ������������ݿ⣡����������----------------------	  1.����goods������ 
-		  														  2.����sales������
-																ԭ��Ʒ����gNum�� ����ԱId  salesManSid */
 
-                                                    //��sales�����
+		/*	这里是购物结算操作数据库！！！！！！----------------------	  1.更改goods表数量
+		  														  2.增加sales表数量
+																原商品数量gNum。 结算员Id  salesManSid */
+
+                                                    //对sales表操作
                                                     Gsales gSales = new Gsales(goods.getGid(), salesManSid, choicegoodsNum);
                                                     boolean insert = new GsalesDao().shoppingSettlement(gSales);
 
-                                                    //��goods�����
-                                                    int goodsNewNum = gNum - choicegoodsNum; //����goods���и���Ʒ����
+                                                    //对goods表操作
+                                                    int goodsNewNum = gNum - choicegoodsNum; //现在goods表中该商品数量
                                                     Goods newGoods = new Goods(goods.getGid(), goodsNewNum);
                                                     boolean update = new GoodsDao().updateGoods(3, newGoods);
 
                                                     if (update && insert) {
-                                                        System.out.println("���㣺" + balance);
-                                                        System.out.println("\nлл���٣���ӭ�´λݹ�");
+                                                        System.out.println("找零：" + balance);
+                                                        System.out.println("\n谢谢光临，欢迎下次惠顾");
                                                     } else {
-                                                        System.err.println("��֧��ʧ�ܣ�"); //�����������һ�������ݿ���������⣡
+                                                        System.err.println("！支付失败！"); //出现这个错误一定是数据库操作有问题！
                                                     }
-                                                    shoppingSettlementPage(salesManSid);//�����ת�����������ҳ��
-                                                    //	�����������������ݿ⣡����������-----------------------------------
+                                                    shoppingSettlementPage(salesManSid);//最后跳转到到购物结算页面
+                                                    //	结束购物结算操作数据库！！！！！！-----------------------------------
                                                 }
                                             } while (true);
 
                                         } else if ("N".equals(choShopping) || "n".equals(choShopping)) {
                                             shoppingSettlementPage(salesManSid);
                                         }
-                                        System.err.println("\t������ȷ�Ϲ������򣡣�");
+                                        System.err.println("\t！！请确认购物意向！！");
                                     } while (true);
                                 }
                             } while (true);
@@ -318,25 +318,25 @@ public final class MainPage extends ScannerChoice {
                         break;
                 }
             } else {
-                System.err.println("\t!!������Ϸ��ַ�!!\n");
+                System.err.println("\t!!请输入合法字符!!\n");
             }
         } while (true);
     }
 
     /**
-     * �ۻ�Ա�������
+     * 售货员管理界面
      */
     public static void salesManManagementPage() {
 
         System.out.println("***************************\n");
-        System.out.println("\t 1.����ۻ�Ա\n");
-        System.out.println("\t 2.�����ۻ�Ա\n");
-        System.out.println("\t 3.ɾ���ۻ�Ա\n");
-        System.out.println("\t 4.��ѯ�ۻ�Ա\n");
-        System.out.println("\t 5.��ʾ�����ۻ�Ա\n");
+        System.out.println("\t 1.添加售货员\n");
+        System.out.println("\t 2.更改售货员\n");
+        System.out.println("\t 3.删除售货员\n");
+        System.out.println("\t 4.查询售货员\n");
+        System.out.println("\t 5.显示所有售货员\n");
         System.out.println("***************************");
 
-        System.out.println("\n������ѡ��,���߰� 0 ������һ���˵�.");
+        System.out.println("\n请输入选项,或者按 0 返回上一级菜单.");
         do {
             String choice = ScannerInfoString();
             String regex = "[0-5]";
@@ -365,8 +365,8 @@ public final class MainPage extends ScannerChoice {
                         break;
                 }
             }
-            System.err.println("\t!��������!");
-            System.out.println("��������� 0 ������һ���˵�.");
+            System.err.println("\t!输入有误!");
+            System.out.println("重新输入或按 0 返回上一级菜单.");
         } while (true);
     }
 }

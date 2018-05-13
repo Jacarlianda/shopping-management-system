@@ -1,19 +1,19 @@
 package lyons.entity;
 
 /**
- * goods ��Ʒʵ����
+ * goods 商品实体类
  *
  * @author lyons(zhanglei)
  */
 public final class Goods {
-    //���ݿ�Goods�����I
+    //数据库Goods表主鍵
     private int gid;
     private String gname;
     private double gprice;
     private int gnum;
 
     /**
-     * �����Ʒ��Ϣ
+     * 添加商品信息
      *
      * @param gname,gprice,gum
      */
@@ -24,7 +24,7 @@ public final class Goods {
     }
 
     /**
-     * չʾ������Ʒ
+     * 展示所有商品
      *
      * @param gid,gname,gprice,gum
      */
@@ -36,7 +36,7 @@ public final class Goods {
     }
 
     /**
-     * ���ݱ�Ÿ�����Ʒ��Ϣ
+     * 根据编号更改商品信息
      *
      * @param gid,gum
      */
@@ -46,7 +46,7 @@ public final class Goods {
     }
 
     /**
-     * ���ݱ�Ÿ�����Ʒ��Ϣ
+     * 根据编号更改商品信息
      *
      * @param gid,gprice
      */
@@ -56,7 +56,7 @@ public final class Goods {
     }
 
     /**
-     * ���ݱ�Ÿ�����Ʒ��Ϣ
+     * 根据编号更改商品信息
      *
      * @param gid,gname
      */
@@ -65,7 +65,7 @@ public final class Goods {
         this.gname = gname;
     }
 
-    //����-get��set-������
+    //共有-get、set-方法。
     public int getGid() {
         return gid;
     }

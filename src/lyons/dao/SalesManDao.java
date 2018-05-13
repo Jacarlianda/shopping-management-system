@@ -11,7 +11,7 @@ import lyons.db.DbConn;
 import lyons.entity.SalesMan;
 
 /**
- * ���ݿ�SalesMan�����
+ * 数据库SalesMan表操作
  *
  * @author lyons(zhanglei)
  */
@@ -21,9 +21,9 @@ public final class SalesManDao {
     ResultSet rs = null;
 
     /**
-     * 1.ǰ̨������½
+     * 1.前台收银登陆
      *
-     * @param sName �û���
+     * @param sName 用户名
      * @return ArrayList<SalesMan> sPassWord,sId
      */
     public ArrayList<SalesMan> checkstandLog(String sName) {
@@ -50,9 +50,9 @@ public final class SalesManDao {
     }
 
     /**
-     * 2.����ۻ�Ա
+     * 2.添加售货员
      *
-     * @param sName �û���
+     * @param sName 用户名
      * @return boolean
      */
     public boolean addSalesMan(SalesMan sName) {
@@ -78,10 +78,10 @@ public final class SalesManDao {
     }
 
     /**
-     * 3.�����ۻ�Ա��Ϣ
+     * 3.更改售货员信息
      *
-     * @param key   Ҫ������
-     * @param sName �û���
+     * @param key   要更改项
+     * @param sName 用户名
      * @return boolean
      */
     public boolean updateSalesMan(int key, SalesMan sName) {
@@ -89,7 +89,7 @@ public final class SalesManDao {
         boolean bool = false;
         conn = DbConn.getconn();
         switch (key) {
-            case 1:        //	3.1 �����ۻ�Ա����
+            case 1:        //	3.1 更改售货员姓名
                 String sqlName = "UPDATE SALESMAN SET SNAME=? WHERE SID=?";
 
                 try {
@@ -107,7 +107,7 @@ public final class SalesManDao {
                     DbClose.addClose(pstmt, conn);
                 }
                 break;
-            case 2:        //	3.2 �����ۻ�Ա����
+            case 2:        //	3.2 更改售货员密码
                 String sqlPrice = "UPDATE SALESMAN SET SPASSWORD=? WHERE SID=?";
 
                 try {
@@ -132,9 +132,9 @@ public final class SalesManDao {
     }
 
     /**
-     * 4.ɾ���ۻ�Ա
+     * 4.删除售货员
      *
-     * @param sName �û���
+     * @param sName 用户名
      * @return boolean
      */
     public boolean deleteSalesMan(String sName) {
@@ -157,17 +157,17 @@ public final class SalesManDao {
     }
 
     /**
-     * 5.ģ����ѯ�ۻ�Ա
+     * 5.模糊查询售货员
      *
-     * @param sName �û���
+     * @param sName 用户名
      * @return ArrayList<SalesMan>
      */
     public ArrayList<SalesMan> querySalesMan(String sName) {
         ArrayList<SalesMan> SalesManList = new ArrayList<SalesMan>();
         conn = DbConn.getconn();
 
-        sName = "%" + sName + "%";    //���û�����ȡ���ַ������� % ���ţ����ﵽģ����ѯ��Ŀ��.�ַ��� �����ӻ��и�����ķ�ʽ�����Ż����룡
-        String sql = "SELECT * FROM SALESMAN WHERE SNAME LIKE ?";  //��Ȼ����ֱ�Ӹ� % .ֻ���������ַ����ķ�ʽ
+        sName = "%" + sName + "%";    //从用户处获取的字符串加上 % 符号，来达到模糊查询的目的.字符串 的连接还有更优秀的方式，待优化代码！
+        String sql = "SELECT * FROM SALESMAN WHERE SNAME LIKE ?";  //居然不能直接跟 % .只能用连接字符串的方式
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, sName);
@@ -189,7 +189,7 @@ public final class SalesManDao {
     }
 
     /**
-     * 6.��ʾ�����ۻ�Ա
+     * 6.显示所有售货员
      *
      * @return ArrayList<SalesMan>
      */
@@ -216,5 +216,4 @@ public final class SalesManDao {
         }
         return salesManList;
     }
-
 }
